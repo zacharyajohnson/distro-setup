@@ -7,18 +7,10 @@ apt-get install -y vim
 apt-get install -y openssh-client openssh-server
 
 #Install git and clone .vim project 
-apt-get install -y git && \
-       	if [ -d $HOME/.vim ] && [ "$(ls -A ~/.vim)" ]
-       	then
-	      echo ".vim config already exists for $USER, skipping installation" && sleep 2s
-        elif [ -d $HOME/.vim ] && [ ! "$(ls -A ~/.vim)" ]
-       	then 
-	      echo ".vim directory exists but is empty for $USER. Cloning .vim config..." && sleep 2s && \ 
-	      git clone https://github.com/zacharyajohnson/.vim $HOME/.vim
-        else
-	      echo ".vim directory doesn't exist for $USER. Cloning .vim config...." && sleep 2s && \
-	      git clone https://github.com/zacharyajohnson/.vim $HOME/.vim
-        fi
+apt-get install -y git
+
+# move vim config files to $HOME/.vim
+mkdir -p $HOME/.vim && cp -r config/vim/* $HOME/.vim
 
 # Set gits default editor to vim and setup my username and email 
 git config --global core.editor vim
