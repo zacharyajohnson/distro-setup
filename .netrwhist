@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/zjohnson/.slime'
-let g:netrw_dirhist_2='/home/zjohnson/.vim'
-let g:netrw_dirhist_3='/home/zjohnson/.vim/autoload/slime'
