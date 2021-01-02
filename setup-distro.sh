@@ -6,7 +6,7 @@ apt-get install -y vim
 
 apt-get install -y openssh-client openssh-server
 
-#Install git and clone .vim project 
+#Install git 
 apt-get install -y git
 
 # move vim config files to $HOME/.vim
