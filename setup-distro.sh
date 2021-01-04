@@ -24,7 +24,7 @@ apt-get install -y tmux
 cp config/tmux/.tmux.conf $HOME
 
 # Copy .bashrc and .bash_profile config files to home folder
-cp config/bash/.bashrc ~/.bashrc && cp config/bash/.bash_profile ~/.bash_profile
+cp config/bash/.bashrc $HOME/.bashrc && cp config/bash/.bash_profile $HOME/.bash_profile
 
 #Creating a bin directory at the current logged in users home and add it to the PATH variable so we can execute any scripts that are convenent to run anywhere
 echo "creating $HOME/bin" && mkdir -p $HOME/bin && \
@@ -35,13 +35,11 @@ echo "creating $HOME/bin" && mkdir -p $HOME/bin && \
 	if grep -q $HOME/bin <<< $PATH 
 	then
 		echo "$HOME/bin already on path, using current PATH variable in .bash_profile" && sleep 2s
-		echo "export PATH='$PATH'" >> ~/.bash_profile
+		echo "export PATH='$PATH'" >> $HOME/.bash_profile
 	else
 		echo "adding $HOME/bin to PATH variable..." && echo "Please login again to see PATH variable changes!" && sleep 2s
-       		echo "export PATH='$HOME/bin:$PATH'" >> ~/.bash_profile 
+		echo "export PATH='$HOME/bin:$PATH'" >> $HOME/.bash_profile 
 	fi
 
 # Move config files for custom tmux setups to the bin folder so they can be executed anywhere
-cp tmux/tmux-slime-lisp.sh ~/bin
-
-
+cp tmux/tmux-slime-lisp.sh $HOME/bin
