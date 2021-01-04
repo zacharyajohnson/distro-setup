@@ -17,8 +17,11 @@ mkdir -p $HOME/.vim && cp -r config/vim/* $HOME/.vim
 
 # Install steel bank common lisp
 apt-get install -y sbcl
+
 # Install tmux
 apt-get install -y tmux
+#Copy tmux config file over
+cp config/tmux/.tmux.conf $HOME
 
 # Copy .bashrc and .bash_profile config files to home folder
 cp config/bash/.bashrc ~/.bashrc && cp config/bash/.bash_profile ~/.bash_profile
