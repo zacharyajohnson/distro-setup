@@ -9,13 +9,11 @@ apt-get install -y openssh-client openssh-server
 #Install git 
 apt-get install -y git
 
+# Copy git config file over
+cp config/git/.gitconfig $HOME
+
 # move vim config files to $HOME/.vim
 mkdir -p $HOME/.vim && cp -r config/vim/* $HOME/.vim
-
-# Set gits default editor to vim and setup my username and email 
-git config --global core.editor vim
-git config --global user.name "Zachary Alan Johnson"
-git config --global user.email zjohnson366@gmail.com
 
 # Install steel bank common lisp
 apt-get install -y sbcl
