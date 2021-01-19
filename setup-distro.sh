@@ -13,7 +13,7 @@ sudo apt-get install -y git
 sudo cp config/git/.gitconfig $HOME
 
 # move vim config files to $HOME/.vim
-sudo mkdir -p $HOME/.vim && sudo cp -r config/vim/* $HOME/.vim
+sudo mkdir -p $HOME/.vim && sudo cp -r config/vim/* $HOME/.vim && sudo chown -R $USER $HOME/.vim
 
 # Install steel bank common lisp
 sudo apt-get install -y sbcl
