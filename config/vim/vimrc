@@ -3,6 +3,13 @@ syntax on
 set number
 filetype plugin indent on
 
+" Shows incomplete commands being typed in the lower right hand corner
+set showcmd
+
+" Shows the current position of the cursor in the file at the lower right hand
+" corner (rows, columns) 
+set ruler
+
 " Sets .netrwhist file to zero so it doesn't track 
 " modified directory history
 let g:netrw_dirhistmax = 0
