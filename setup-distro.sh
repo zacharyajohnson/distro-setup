@@ -9,6 +9,9 @@ sudo apt-get install -y openssh-client openssh-server
 #Install git 
 sudo apt-get install -y git
 
+#Install GNU Compiler Collection 
+sudo apt-get install -y gcc
+
 # Copy git config file over
 sudo cp config/git/.gitconfig $HOME
 
