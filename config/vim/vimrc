@@ -1,6 +1,16 @@
 colorscheme molokai
 syntax on
 set number
+
+" Expand tabs to spaces when using tab key
+set expandtab 
+set tabstop=8
+
+" Sets the level of identation(spaces) for auto indent
+" Includes | 'cindent(Automatic C indentation) | >>(Indent line rightward) and
+" << (Indent line leftward)
+set shiftwidth=8
+
 filetype plugin indent on
 
 " Shows incomplete commands being typed in the lower right hand corner
