@@ -12,6 +12,9 @@ sudo apt-get install -y git
 #Install GNU Compiler Collection 
 sudo apt-get install -y gcc
 
+#Install Ctags for C/C++ development
+sudo apt-get install -y ctags
+
 # Copy git config file over
 sudo cp config/git/.gitconfig $HOME
 
