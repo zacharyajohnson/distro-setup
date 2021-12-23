@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo $install_command openssh-client
+$install_command openssh-client

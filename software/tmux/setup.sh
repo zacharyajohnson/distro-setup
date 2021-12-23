@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install tmux
-sudo $install_command tmux
+$install_command tmux
 
 #Copy tmux config file over
 sudo cp config/.tmux.conf $HOME

@@ -2,10 +2,10 @@
 
 base_project_dir=$PWD
 
-if [ apt ];
+if [ apt = 0 ];
 then
-        export install_command='apt-get install -y'
-elif [ brew ];
+        export install_command='sudo apt-get install -y'
+elif [ brew = 0 ];
 then
         export install_command='brew install'
 else
