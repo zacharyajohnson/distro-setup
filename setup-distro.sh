@@ -1,19 +1,30 @@
 #!/bin/sh
 
-sudo apt-get update && sudo apt-get upgrade
+if [ apt ];
+then
+        install_command='apt-get install -y'
+elif [ brew ];
+then
+        install_command='brew install'
+else
+        echo 'Could not find valid package manager. Aborting...'
+        exit 1
+fi
 
-sudo apt-get install -y vim 
+echo "Setting package install command to: $install_command"
 
-sudo apt-get install -y openssh-client openssh-server
+sudo $install_command vim
+
+sudo $install_command openssh-client openssh-server
 
 #Install git 
-sudo apt-get install -y git
+sudo $install_command git
 
 #Install GNU Compiler Collection 
-sudo apt-get install -y gcc
+sudo $install_command gcc
 
 #Install Ctags for C/C++ development
-sudo apt-get install -y ctags
+sudo $install_command ctags
 
 # Copy git config file over
 sudo cp config/git/.gitconfig $HOME
@@ -22,10 +33,10 @@ sudo cp config/git/.gitconfig $HOME
 sudo mkdir -p $HOME/.vim && sudo cp -r config/vim/* $HOME/.vim && sudo chown -R $USER $HOME/.vim
 
 # Install steel bank common lisp
-sudo apt-get install -y sbcl
+sudo $install_command sbcl
 
 # Install tmux
-sudo apt-get install -y tmux
+sudo $install_command tmux
 #Copy tmux config file over
 sudo cp config/tmux/.tmux.conf $HOME
 
