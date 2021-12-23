@@ -2,10 +2,16 @@
 
 base_project_dir=$PWD
 
-if [ apt = 0 ];
+apt-get > /dev/null 2>&1
+apt_get_error_code=$?
+
+brew > /dev/null 2>&1
+brew_error_code=$?
+
+if [ $apt_get_error_code -eq 1 ];
 then
         export install_command='sudo apt-get install -y'
-elif [ brew = 0 ];
+elif [ $brew_error_code -eq 1 ];
 then
         export install_command='brew install'
 else
