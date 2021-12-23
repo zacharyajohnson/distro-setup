@@ -1,6 +1,6 @@
 [submodule "config/vim/pack/plugins/start/rust.vim"]
-	path = config/vim/pack/plugins/start/rust.vim
+	path = software/vim/config/pack/plugins/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
 [submodule "config/vim/pack/plugins/start/vim-slime"]
-	path = config/vim/pack/plugins/start/vim-slime
+	path = software/vim/config/pack/plugins/start/vim-slime
 	url = https://github.com/jpalardy/vim-slime
