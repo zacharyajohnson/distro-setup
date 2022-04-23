@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#Creating a bin directory at the current logged in users home and add it to the PATH variable so we can execute any scripts that are convenent to run anywhere
+echo "creating $HOME/bin" && sudo mkdir -p $HOME/bin
+
 base_project_dir=$PWD
 
 apt-get > /dev/null 2>&1
@@ -28,10 +31,6 @@ then
 fi
 
 echo "Setting package install command to: $install_command"
-
-#Creating a bin directory at the current logged in users home and add it to the PATH variable so we can execute any scripts that are convenent to run anywhere
-echo "creating $HOME/bin" && sudo mkdir -p $HOME/bin
-
 
 for folder in $(ls software/)
 do
