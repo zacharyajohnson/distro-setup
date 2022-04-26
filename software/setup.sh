@@ -20,7 +20,8 @@ get_install_command() {
         fi
 }
 
-export install_command=$(get_install_command)
+install_command="$(get_install_command)"
+export install_command
 
 if [ ! $? -eq 0 ]; then
         echo 'Could not find valid package manager. Aborting software installation...'
