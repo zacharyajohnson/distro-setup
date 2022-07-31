@@ -7,8 +7,9 @@ if [ "$SHELL" = '/bin/bash' ];
 then
         (
         echo 'Detected bash shell. Installing configs...'
-        sudo chmod u+x shell/bash/setup.sh && ./shell/bash/setup.sh
+        cd 'shell/bash' \
+        && sudo chmod u+x 'setup.sh' && './setup.sh'
         )
 fi
 
-( cd software && sh setup.sh )
+cd software && ./setup.sh
