@@ -25,8 +25,17 @@ else
         return 1
 fi
 
-for folder in */
+# Get all folders in the dir and strip the ending slash in the folder.
+# This is used to skip trying to install already installed packages..
+# We need to get rid of the ending slash so our package query
+# command works correctly.
+for folder in $(echo */ | sed 's/\// /g')
 do
+        if dpkg -s "$folder" > '/dev/null'; then
+                echo "$folder already installed. Skipping..."
+                continue
+        fi
+
         echo "Would you like to install $folder?"
         read -r answer
 
