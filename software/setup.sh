@@ -35,8 +35,8 @@ do
                 if [ -f "$folder/setup.sh" ];
                 then
                 (
-                        cd "$folder"
-                        sudo chmod u+x 'setup.sh' && './setup.sh'
+                        cd "$folder" \
+                        && sudo chmod u+x 'setup.sh' && './setup.sh'
                 )
                 fi
         else

@@ -4,7 +4,7 @@
 $install_command tmux
 
 #Copy tmux config file over
-cp config/.tmux.conf "$HOME"
+cp -r config/. "$HOME"
 
 # Move config files for custom tmux setups to the bin folder so they can be executed anywhere
-cp bin/* "$HOME/bin"
+cp -r bin/. "$HOME/bin"
