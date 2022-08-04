@@ -17,9 +17,6 @@
 # alias cp='cp -i'
 # alias mv='mv -i'
 
-# alias for tmux slime/lisp window and pane configuration
-alias tmux-slime-session='tmux-slime-lisp.sh'
-
 if [ -d "$HOME/bin" ]; then
 	PATH="$HOME/bin:$PATH"
 fi
