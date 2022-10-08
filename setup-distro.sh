@@ -12,4 +12,4 @@ then
         )
 fi
 
-cd software && ./setup.sh
+cd software && ./setup.sh "$1"

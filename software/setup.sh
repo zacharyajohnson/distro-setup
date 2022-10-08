@@ -1,4 +1,27 @@
 #!/bin/sh
+_install_config_files() {
+        folder=$1
+        if [ -f "$folder/install_config.sh" ]; then
+                echo "Installing config for $folder"
+                (
+                        cd "$folder" \
+                               && sudo chmod u+x 'install_config.sh' && './install_config.sh'
+
+                )
+        fi
+}
+
+_install_bin_scripts() {
+        folder=$1
+
+        if [ -f "$folder/install_bin_scripts.sh" ]; then
+                echo "Installing bin files for $folder"
+                (
+                        cd "$folder" \
+                                && sudo chmod u+x 'install_bin_scripts.sh' && './install_bin_scripts.sh'
+                )
+        fi
+}
 
 _get_install_command() {
         apt-get > /dev/null 2>&1
@@ -18,6 +41,25 @@ _get_install_command() {
         fi
 }
 
+profile_option=$(echo "$1" | awk -F '=' '{print $1}')
+profile_option_values="$(echo "$1" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
+
+if [ -n "$profile_option" ]; then
+        if [ "$profile_option" != '--profiles' ]; then
+                echo "Invalid option. Only valid option is --profiles"
+                exit 1
+        elif [ -z "$profile_option_values" ]; then
+                echo "No arguments for --profiles"
+                exit 1
+        fi
+fi
+
+
+if [ -z "$profile_option_values" ]; then
+        profile_option_values='common'
+fi
+
+
 if _get_install_command; then
         echo "Setting package install command to: $install_command"
 else
@@ -31,25 +73,45 @@ fi
 # command works correctly.
 for folder in $(echo */ | sed 's/\// /g')
 do
-        if dpkg -s "$folder" > '/dev/null'; then
-                echo "$folder already installed. Skipping..."
-                continue
+        folder_profiles=$(cat "$folder/.profiles" 2>'/dev/null')
+
+        # If the folders profile for a piece of software doesn't exist, default to common
+        # for it
+        if [ -z "$folder_profiles" ]; then
+                folder_profiles='common'
         fi
 
-        echo "Would you like to install $folder?"
-        read -r answer
+        should_install=false
 
-        if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ];
-        then
-                if [ -f "$folder/setup.sh" ];
-                then
-                (
-                        cd "$folder" \
-                        && sudo chmod u+x 'setup.sh' && './setup.sh'
-                )
+        for profile_option_value in $profile_option_values
+        do
+                if echo "$folder_profiles" | grep -xq "$profile_option_value"; then
+                        should_install=true
+                        break;
+                fi
+        done
+
+        if dpkg -s "$folder" > '/dev/null' 2>&1; then
+                echo "$folder already installed. Skipping..."
+                _install_config_files "$folder"
+                _install_bin_scripts "$folder"
+        elif [ "$should_install" = true ]; then
+
+                echo "Would you like to install $folder?"
+                read -r answer
+
+                if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
+                        if [ -f "$folder/setup.sh" ];
+                        then
+                        (
+                                cd "$folder" \
+                                        && sudo chmod u+x 'setup.sh' && './setup.sh'
+                        )
+                        fi
+                else
+                        echo "Skipping $folder."
                 fi
         else
-                echo "Skipping $folder."
+                echo "$folder is not part of profile(s) ($profile_option_values). Skipping..."
         fi
-
 done
