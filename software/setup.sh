@@ -23,7 +23,7 @@ _install_bin_scripts() {
         fi
 }
 
-_get_install_command() {
+_get_package_commands() {
         apt-get > /dev/null 2>&1
         apt_get_error_code=$?
 
@@ -32,9 +32,11 @@ _get_install_command() {
 
         if [ $apt_get_error_code -eq 1 ]; then
                 export install_command='sudo apt-get install -y'
+                export check_command='dpkg -s'
                 return 0
         elif [ $brew_error_code -eq 1 ]; then
                 export install_command='brew install'
+                export check_command='brew list'
                 return 0
         else
                 return 1
@@ -60,8 +62,9 @@ if [ -z "$profile_option_values" ]; then
 fi
 
 
-if _get_install_command; then
+if _get_package_commands; then
         echo "Setting package install command to: $install_command"
+        echo "Setting package check command to: $check_command"
 else
         echo 'Could not find valid package manager. Aborting software installation...'
         return 1
@@ -90,8 +93,8 @@ do
                         break;
                 fi
         done
-
-        if dpkg -s "$folder" > '/dev/null' 2>&1; then
+     
+        if $check_command $folder > '/dev/null' 2>&1; then
                 echo "$folder already installed. Skipping..."
                 _install_config_files "$folder"
                 _install_bin_scripts "$folder"
