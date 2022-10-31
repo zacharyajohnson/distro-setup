@@ -15,7 +15,7 @@ _dir_files_total_line_count() {
                 parameter_offset=3
         fi
 
-        cmd="find -maxdepth $file_search_max_depth -type f" 
+        cmd="find . -maxdepth $file_search_max_depth -type f"
 
         arg_total_count="$#"
         arg_count="$parameter_offset"
