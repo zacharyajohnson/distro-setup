@@ -8,7 +8,7 @@ then
         (
         echo 'Detected bash shell. Installing configs...'
         cd 'shell/bash' \
-        && sudo chmod u+x 'setup.sh' && './setup.sh'
+        && chmod u+x 'setup.sh' && './setup.sh'
         )
 fi
 

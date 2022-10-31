@@ -5,7 +5,7 @@ _install_config_files() {
                 echo "Installing config for $folder"
                 (
                         cd "$folder" \
-                               && sudo chmod u+x 'install_config.sh' && './install_config.sh'
+                               && chmod u+x 'install_config.sh' && './install_config.sh'
 
                 )
         fi
@@ -18,7 +18,7 @@ _install_bin_scripts() {
                 echo "Installing bin files for $folder"
                 (
                         cd "$folder" \
-                                && sudo chmod u+x 'install_bin_scripts.sh' && './install_bin_scripts.sh'
+                                && chmod u+x 'install_bin_scripts.sh' && './install_bin_scripts.sh'
                 )
         fi
 }
@@ -108,7 +108,7 @@ do
                         then
                         (
                                 cd "$folder" \
-                                        && sudo chmod u+x 'setup.sh' && './setup.sh'
+                                        && chmod u+x 'setup.sh' && './setup.sh'
                         )
                         fi
                 else
