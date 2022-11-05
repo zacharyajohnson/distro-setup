@@ -3,6 +3,9 @@
 #Copy over aliases common across all shells
 cp '../common/.aliases.sh' "$HOME"
 
+# Copy over exports that are common across all shells
+cp '../common/.export.sh' "$HOME"
+
 # Copy .bashrc and .bash_profile config files to home folder
 echo "Installing .bashrc and .bash_profile at $HOME"
 

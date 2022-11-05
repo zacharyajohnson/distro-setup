@@ -7,3 +7,7 @@ fi
 if [ -f "$HOME/.aliases.sh" ]; then
         . "$HOME/.aliases.sh"
 fi
+
+if [ -f "$HOME/.export.sh" ]; then
+        . "$HOME/.export.sh"
+fi
