@@ -30,6 +30,9 @@ _get_package_commands() {
         brew > /dev/null 2>&1
         brew_error_code=$?
 
+	pkg help > /dev/null 2>&1
+	free_bsd_error_code=$?
+
         if [ $apt_get_error_code -eq 1 ]; then
                 export install_command='sudo apt-get install -y'
                 export check_command='dpkg -s'
@@ -38,6 +41,9 @@ _get_package_commands() {
                 export install_command='brew install'
                 export check_command='brew list'
                 return 0
+	elif [ $free_bsd_error_code -eq 0 ]; then
+		export install_command='sudo pkg install'
+		export check_command='pkg info'
         else
                 return 1
         fi
