@@ -22,7 +22,7 @@ _dir_files_total_line_count() {
                 cmd=$(printf "%s -e \\$reg_expression\$" "$cmd")
         done
 
-        cmd=$(printf "%s | xargs wc -l" "$cmd" | sed -e 's/,/ /g')
+        cmd=$(printf "%s | xargs wc -l | sort -n" "$cmd" | sed -e 's/,/ /g')
 
         eval "$cmd"
 }
