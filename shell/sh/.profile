@@ -8,9 +8,10 @@ if [ -f "$HOME/.aliases.sh" ]; then
         . "$HOME/.aliases.sh"
 fi
 
-for export_file in $( echo ./.*export.sh | sed 's/.\///g' )
+for export_file in $(echo .*export.sh)
 do
-        if echo "$export_file" | grep -E '^\.{1}[a-zA-Z0-9_-]*export.sh' > /dev/null 2>&1; then
+        if [ -e "$export_file" ]; then
                 . "$export_file"
         fi
 done
+
