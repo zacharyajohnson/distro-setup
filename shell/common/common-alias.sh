@@ -18,7 +18,7 @@ _dir_files_total_line_count() {
         for file_extension in "$@"
         do
                 printf "Total for .$file_extension\n"
-                find "$directory" -type f -name "*.$file_extension" -exec wc -l {} +
+                find "$directory" -type f -name "*.$file_extension" -exec wc -l {} + | sort -n
         done
 
 }
