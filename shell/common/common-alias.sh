@@ -5,30 +5,26 @@ _git_all_commits() {
 }
 
 _dir_files_total_line_count() {
-        cmd='find . -type f -path "*"'
+        if [ $# -lt 2 ]; then
+                    echo "Usage: dir-files-total-line-count <directory> <file_extension1> <file_extension2> ..."
+                    return 1
+        fi
 
-        first_loop=true
-        for reg_expression in "$@"
+        directory="$1"
+        shift
+
+
+        # Iterate through each file extension and call the function
+        for file_extension in "$@"
         do
-                if [ "$first_loop" = true ]; then
-                        cmd=$(printf "%s | grep" "$cmd")
-                        first_loop=false
-                fi
-
-                if [ -z "$reg_expression" ]; then
-                        reg_expression="*"
-                fi
-
-                cmd=$(printf "%s -e \\$reg_expression\$" "$cmd")
+                printf "Total for .$file_extension\n"
+                find "$directory" -type f -name "*.$file_extension" -exec wc -l {} +
         done
 
-        cmd=$(printf "%s | xargs wc -l | sort -n" "$cmd" | sed -e 's/,/ /g')
-
-        eval "$cmd"
 }
+
 
 alias git-all-commits='_git_all_commits'
 
 alias dir-files-total-line-count='_dir_files_total_line_count'
 alias find-dirs='find . -maxdepth 1 -type d'
-
