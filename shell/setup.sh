@@ -8,6 +8,9 @@ alias_folder="$HOME/.alias"
 mkdir -p "$export_folder"
 mkdir -p "$alias_folder"
 
+# Copy over inputrc so I stop hearing that damn bell
+cp 'common/.inputrc' "$HOME"
+
 # Copy over exports that are common across all shells
 cp 'common/common-export.sh' "$export_folder"
 
