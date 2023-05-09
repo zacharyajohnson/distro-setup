@@ -31,3 +31,4 @@ alias git-all-commits='_git_all_commits'
 
 alias dir-files-total-line-count='_dir_files_total_line_count'
 alias find-dirs='find . -maxdepth 1 -type d'
+

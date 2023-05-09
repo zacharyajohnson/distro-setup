@@ -2,4 +2,6 @@
 
 export GITHUB_USERNAME=zacharyajohnson
 
-export PS1="$(whoami)@\h:\w\$ "
+PS1="$(whoami)@\\h:\\w\$ "
+export PS1
+

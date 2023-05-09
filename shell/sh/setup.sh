@@ -1,13 +1,13 @@
 #!/bin/sh
 
-#Copy over aliases common across all shells
-cp '../common/.aliases.sh' "$HOME"
+if [ -f "$HOME/.profile" ]; then
+       echo ".profile exists. Backing up at $HOME/.backup-profile"
+       cp "$HOME/.profile" "$HOME/.backup-profile"
+fi
 
-# Copy over exports that are common across all shells
-cp '../common/.export.sh' "$HOME"
+# Copy .profile config file to home folder
+echo "Overriding .profile at $HOME"
 
-# Copy profile config file to home folder
-echo "Installing .profile at $HOME"
+# shellcheck source=/dev/null
+cat '../common/common-config.sh' > "$HOME/.profile" && . "$HOME/.profile"
 
-cp .profile "$HOME/.profile" \
-        && . "$HOME/.profile"
