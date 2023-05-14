@@ -1,5 +1,10 @@
 #!/bin/sh
 
+_is_on_path() {
+        echo "$PATH" | grep -q "$1" > /dev/null 2>&1
+        return $?
+}
+
 bin_directory="$HOME/bin"
 
 export_directory="$HOME/.export"
@@ -8,7 +13,8 @@ common_export_file="$export_directory/common-export.sh"
 alias_directory="$HOME/.alias"
 common_alias_file="$alias_directory/common-alias.sh"
 
-if [ -d "$bin_directory" ]; then
+# If the bin directory exists and is not on the PATH add it
+if [ -d "$bin_directory" ] && ! _is_on_path "$bin_directory"; then
 	PATH="$bin_directory:$PATH"
 fi
 
@@ -45,5 +51,4 @@ if [ -d "$export_directory" ]; then
                 fi
         done
 fi
-
 
