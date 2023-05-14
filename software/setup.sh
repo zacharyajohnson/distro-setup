@@ -110,11 +110,11 @@ do
                 read -r answer
 
                 if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
-                        if [ -f "$folder/setup.sh" ];
+                        if [ -f "$folder/install.sh" ];
                         then
                         (
                                 cd "$folder" \
-                                        && chmod u+x 'setup.sh' && './setup.sh'
+                                        && chmod u+x 'install.sh' && './install.sh'
                         )
                         fi
                 else
