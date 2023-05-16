@@ -4,4 +4,4 @@
 $install_command git
 
 # Copy git config file over
-./install_config.sh
+./install-config.sh

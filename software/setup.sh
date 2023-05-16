@@ -1,11 +1,11 @@
 #!/bin/sh
 _install_config_files() {
         folder=$1
-        if [ -f "$folder/install_config.sh" ]; then
+        if [ -f "$folder/install-config.sh" ]; then
                 echo "Installing config for $folder"
                 (
                         cd "$folder" \
-                               && chmod u+x 'install_config.sh' && './install_config.sh'
+                               && chmod u+x 'install-config.sh' && './install-config.sh'
 
                 )
         fi
@@ -14,11 +14,11 @@ _install_config_files() {
 _install_bin_scripts() {
         folder=$1
 
-        if [ -f "$folder/install_bin_scripts.sh" ]; then
+        if [ -f "$folder/install-bin-scripts.sh" ]; then
                 echo "Installing bin files for $folder"
                 (
                         cd "$folder" \
-                                && chmod u+x 'install_bin_scripts.sh' && './install_bin_scripts.sh'
+                                && chmod u+x 'install-bin-scripts.sh' && './install-bin-scripts.sh'
                 )
         fi
 }
