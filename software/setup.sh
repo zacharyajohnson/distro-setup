@@ -5,7 +5,7 @@ _install_config_files() {
                 echo "Installing config for $folder"
                 (
                         cd "$folder" \
-                               && chmod u+x 'install-config.sh' && './install-config.sh'
+                                && './install-config.sh'
 
                 )
         fi
@@ -18,30 +18,21 @@ _install_bin_scripts() {
                 echo "Installing bin files for $folder"
                 (
                         cd "$folder" \
-                                && chmod u+x 'install-bin-scripts.sh' && './install-bin-scripts.sh'
+                                && './install-bin-scripts.sh'
                 )
         fi
 }
 
 _get_package_commands() {
-        apt-get > /dev/null 2>&1
-        apt_get_error_code=$?
-
-        brew > /dev/null 2>&1
-        brew_error_code=$?
-
-	pkg help > /dev/null 2>&1
-	free_bsd_error_code=$?
-
-        if [ $apt_get_error_code -eq 1 ]; then
+        if which apt-get; then
                 export install_command='sudo apt-get install -y'
                 export check_command='dpkg -s'
                 return 0
-        elif [ $brew_error_code -eq 1 ]; then
+        elif which brew; then
                 export install_command='brew install'
                 export check_command='brew list'
                 return 0
-	elif [ $free_bsd_error_code -eq 0 ]; then
+	elif which pkg; then
 		export install_command='sudo pkg install'
 		export check_command='pkg info'
         else
@@ -100,7 +91,7 @@ do
                 fi
         done
      
-        if $check_command $folder > '/dev/null' 2>&1; then
+        if $check_command "$folder" > '/dev/null' 2>&1; then
                 echo "$folder already installed. Skipping..."
                 _install_config_files "$folder"
                 _install_bin_scripts "$folder"
