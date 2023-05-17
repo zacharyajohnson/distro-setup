@@ -1,6 +1,6 @@
 #!/bin/sh
 
-$install_command wine \
+sudo apt-get install -y wine \
         wine32 \
         wine64 \
         libwine \

@@ -1,4 +1,5 @@
 #!/bin/sh
+
 _install_config_files() {
         folder=$1
         if [ -f "$folder/install-config.sh" ]; then
@@ -23,18 +24,19 @@ _install_bin_scripts() {
         fi
 }
 
-_get_package_commands() {
-        if which apt-get; then
-                export install_command='sudo apt-get install -y'
-                export check_command='dpkg -s'
+_get_package_manager() {
+        # Need the redirects to /dev/null
+        # or the output of which which will be
+        # part of the function value in standard out
+        if which dpkg > '/dev/null'; then
+                printf 'dpkg'
                 return 0
-        elif which brew; then
-                export install_command='brew install'
-                export check_command='brew list'
+        elif which brew > '/dev/null'; then
+                printf 'brew'
                 return 0
-	elif which pkg; then
-		export install_command='sudo pkg install'
-		export check_command='pkg info'
+        elif which pkg > '/dev/null'; then
+                printf 'pkg'
+                return 0
         else
                 return 1
         fi
@@ -59,12 +61,12 @@ if [ -z "$profile_option_values" ]; then
 fi
 
 
-if _get_package_commands; then
-        echo "Setting package install command to: $install_command"
-        echo "Setting package check command to: $check_command"
+package_manager="$(_get_package_manager)"
+
+if [ -n "$package_manager" ]; then
+        printf 'Detected package manager %s\n\n' "$package_manager"
 else
-        echo 'Could not find valid package manager. Aborting software installation...'
-        return 1
+        printf 'Could not detect package manager. Will install software that can be installed with no package manager...\n\n'
 fi
 
 # Get all folders in the dir and strip the ending slash in the folder.
@@ -91,27 +93,38 @@ do
                 fi
         done
      
-        if $check_command "$folder" > '/dev/null' 2>&1; then
-                echo "$folder already installed. Skipping..."
-                _install_config_files "$folder"
-                _install_bin_scripts "$folder"
-        elif [ "$should_install" = true ]; then
+        install_script_name="install-with-$package_manager.sh"
 
-                echo "Would you like to install $folder?"
+        if [ "$should_install" = true ]; then
+                printf '\nWould you like to install %s?\n' "$folder"
                 read -r answer
 
                 if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
-                        if [ -f "$folder/install.sh" ];
-                        then
-                        (
-                                cd "$folder" \
-                                        && chmod u+x 'install.sh' && './install.sh'
-                        )
+                        if [ -e "$folder/$install_script_name" ]; then
+                                printf 'Installing %s with %s\n' "$folder" "$package_manager"
+                                (
+                                        cd "$folder" \
+                                                && "./$install_script_name"
+                                )
+
+                                _install_config_files "$folder"
+                                _install_bin_scripts "$folder"
+                        elif [ -e "$folder/install-with-no-package-manager.sh" ]; then
+                                printf 'Manually installing %s with no package manager\n' "$folder"
+                                (
+                                        cd "$folder" \
+                                                && './install-with-no-package-manager.sh'
+                                )
+
+                                _install_config_files "$folder"
+                                _install_bin_scripts "$folder"
+                        else
+                                printf 'Install script does not exist for %s. Skipping...\n\n' "$folder"
                         fi
                 else
-                        echo "Skipping $folder."
+                        printf 'Skipping %s installation.\n\n' "$folder"
                 fi
         else
-                echo "$folder is not part of profile(s) ($profile_option_values). Skipping..."
+                printf '%s is not part of profile(s) (%s). Skipping...\n' "$folder" "$profile_option_values"
         fi
 done

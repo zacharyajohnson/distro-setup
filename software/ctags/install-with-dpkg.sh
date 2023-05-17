@@ -1,4 +1,4 @@
 #!/bin/sh
 
 #Install Ctags for C/C++ development
-$install_command ctags
+sudo apt-get install -y ctags

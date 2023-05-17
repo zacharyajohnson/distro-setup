@@ -1,4 +1,4 @@
 #!/bin/sh
 
 #Install GNU Compiler Collection
-$install_command gcc
+sudo apt-get install -y gcc
