@@ -3,7 +3,7 @@
 _install_config_files() {
         folder=$1
         if [ -f "$folder/install-config.sh" ]; then
-                echo "Installing config for $folder"
+                echo "Installing configs for $folder"
                 (
                         cd "$folder" \
                                 && './install-config.sh'
@@ -20,6 +20,18 @@ _install_bin_scripts() {
                 (
                         cd "$folder" \
                                 && './install-bin-scripts.sh'
+                )
+        fi
+}
+
+_install_aliases() {
+        folder=$1
+        if [ -f "$folder/install-alias.sh" ]; then
+                echo "Installing aliases for $folder"
+                (
+                        cd "$folder" \
+                                && './install-alias.sh'
+
                 )
         fi
 }
@@ -109,6 +121,7 @@ do
 
                                 _install_config_files "$folder"
                                 _install_bin_scripts "$folder"
+                                _install_aliases "$folder"
                         elif [ -e "$folder/install-with-no-package-manager.sh" ]; then
                                 printf 'Manually installing %s with no package manager\n' "$folder"
                                 (
@@ -118,6 +131,7 @@ do
 
                                 _install_config_files "$folder"
                                 _install_bin_scripts "$folder"
+                                _install_aliases "$folder"
                         else
                                 printf 'Install script does not exist for %s. Skipping...\n\n' "$folder"
                         fi

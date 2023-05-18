@@ -1,9 +1,5 @@
 #!/bin/sh
 
-_git_all_commits() {
-        git log --all --reverse | grep '^commit' | awk '{print $2}'
-}
-
 _dir_files_total_line_count() {
         if [ $# -lt 2 ]; then
                     echo "Usage: dir-files-total-line-count <directory> <file_extension1> <file_extension2> ..."
@@ -24,7 +20,6 @@ _dir_files_total_line_count() {
 }
 
 
-alias git-all-commits='_git_all_commits'
 
 alias dir-files-total-line-count='_dir_files_total_line_count'
 alias find-dirs='find . -maxdepth 1 -type d'
