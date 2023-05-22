@@ -49,6 +49,9 @@ _get_package_manager() {
         elif which pkg > '/dev/null'; then
                 printf 'pkg'
                 return 0
+        elif which packman > '/dev/null'; then
+                printf 'pacman'
+                return 0
         else
                 return 1
         fi
