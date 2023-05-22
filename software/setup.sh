@@ -40,16 +40,16 @@ _get_package_manager() {
         # Need the redirects to /dev/null
         # or the output of which which will be
         # part of the function value in standard out
-        if which dpkg > '/dev/null'; then
+        if which dpkg > '/dev/null' 2>&1; then
                 printf 'dpkg'
                 return 0
-        elif which brew > '/dev/null'; then
+        elif which brew > '/dev/null' 2>&1; then
                 printf 'brew'
                 return 0
-        elif which pkg > '/dev/null'; then
+        elif which pkg > '/dev/null' 2>&1; then
                 printf 'pkg'
                 return 0
-        elif which packman > '/dev/null'; then
+        elif which pacman > '/dev/null' 2>&1; then
                 printf 'pacman'
                 return 0
         else
