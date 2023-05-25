@@ -36,15 +36,9 @@ _install_aliases() {
         fi
 }
 
-_get_package_manager() {
-        # Need the redirects to /dev/null
-        # or the output of which which will be
-        # part of the function value in standard out
+_get_native_package_manager() {
         if which dpkg > '/dev/null' 2>&1; then
                 printf 'dpkg'
-                return 0
-        elif which brew > '/dev/null' 2>&1; then
-                printf 'brew'
                 return 0
         elif which pkg > '/dev/null' 2>&1; then
                 printf 'pkg'
@@ -55,6 +49,19 @@ _get_package_manager() {
         else
                 return 1
         fi
+}
+
+_get_non_native_package_manager() {
+        if which flatpak > '/dev/null' 2>&1; then
+                printf 'flatpak'
+                return 0
+        elif which brew > '/dev/null' 2>&1; then
+                printf 'brew'
+                return 0
+        else
+                return 1
+        fi
+
 }
 
 profile_option=$(echo "$1" | awk -F '=' '{print $1}')
@@ -76,13 +83,8 @@ if [ -z "$profile_option_values" ]; then
 fi
 
 
-package_manager="$(_get_package_manager)"
-
-if [ -n "$package_manager" ]; then
-        printf 'Detected package manager %s\n\n' "$package_manager"
-else
-        printf 'Could not detect package manager. Will install software that can be installed with no package manager...\n\n'
-fi
+native_package_manager="$(_get_native_package_manager)"
+non_native_package_manager="$(_get_non_native_package_manager)"
 
 # Get all folders in the dir and strip the ending slash in the folder.
 # This is used to skip trying to install already installed packages..
@@ -108,18 +110,29 @@ do
                 fi
         done
      
-        install_script_name="install-with-$package_manager.sh"
+        install_native_script_name="install-with-$native_package_manager.sh"
+        install_non_native_script_name="install-with-$non_native_package_manager.sh"
 
         if [ "$should_install" = true ]; then
                 printf '\nWould you like to install %s?\n' "$folder"
                 read -r answer
 
                 if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
-                        if [ -e "$folder/$install_script_name" ]; then
-                                printf 'Installing %s with %s\n' "$folder" "$package_manager"
+                        if [ -e "$folder/$install_native_script_name" ]; then
+                                printf 'Installing %s with %s\n' "$folder" "$native_package_manager"
                                 (
                                         cd "$folder" \
-                                                && "./$install_script_name"
+                                                && "./$install_native_script_name"
+                                )
+
+                                _install_config_files "$folder"
+                                _install_bin_scripts "$folder"
+                                _install_aliases "$folder"
+                        elif [ -e "$folder/$install_non_native_script_name" ]; then
+                                printf 'Installing %s with %s\n' "$folder" "$non_native_package_manager"
+                                (
+                                        cd "$folder" \
+                                                && "./$install_non_native_script_name"
                                 )
 
                                 _install_config_files "$folder"
