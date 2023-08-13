@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Set shell command line editing to vi mode(Starts you in input mode)
+set -o vi
+
 _is_on_path() {
         echo "$PATH" | grep -q "$1" > /dev/null 2>&1
         return $?
