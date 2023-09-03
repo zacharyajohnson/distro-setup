@@ -8,12 +8,12 @@ _is_on_path() {
         return $?
 }
 
-bin_directory="$HOME/bin"
+bin_directory="$HOME/.distro-config/bin"
 
-export_directory="$HOME/.export"
+export_directory="$HOME/.distro-config/export"
 common_export_file="$export_directory/common-export.sh"
 
-alias_directory="$HOME/.alias"
+alias_directory="$HOME/.distro-config/alias"
 common_alias_file="$alias_directory/common-alias.sh"
 
 # If the bin directory exists and is not on the PATH add it

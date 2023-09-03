@@ -2,8 +2,8 @@
 
 set -e
 
-export_folder="$HOME/.export"
-alias_folder="$HOME/.alias"
+export_folder="$HOME/.distro-config/export"
+alias_folder="$HOME/.distro-config/alias"
 
 mkdir -p "$export_folder"
 mkdir -p "$alias_folder"

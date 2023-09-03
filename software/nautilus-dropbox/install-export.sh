@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-export_folder="$HOME/.export/dropbox/"
+export_folder="$HOME/.distro-config/export/dropbox/"
 
 if [ -n "$CLOUD_FOLDER" ]; then
         printf 'Cloud folder is set to %s. Would you like to override? (Y)es/(N)o\n' "$CLOUD_FOLDER" 
