@@ -1,8 +1,8 @@
 #!/bin/sh
 
-_dir_files_total_line_count() {
+_shell_file_line_count_by_extension () {
         if [ $# -lt 2 ]; then
-                    echo "Usage: dir-files-total-line-count <directory> <file_extension1> <file_extension2> ..."
+                    echo "Usage: shell-file-line-count-by-extension <directory> <file_extension1> <file_extension2> ..."
                     return 1
         fi
 
@@ -21,5 +21,5 @@ _dir_files_total_line_count() {
 
 
 
-alias dir-files-total-line-count='_dir_files_total_line_count'
-alias find-dirs='find . -maxdepth 1 -type d'
+alias shell-file-line-count-by-extension='_shell_file_line_count_by_extension'
+alias shell-find-dirs='find . -maxdepth 1 -type d'
