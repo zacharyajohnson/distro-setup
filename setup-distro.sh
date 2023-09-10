@@ -2,7 +2,10 @@
 
 set -e
 
-cd shell && ./setup.sh
-cd ../
+(
+        cd shell && ./setup.sh
+)
 
-cd software && ./setup.sh "$1"
+(
+        cd software && ./setup.sh "$1"
+)
