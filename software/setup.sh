@@ -1,25 +1,5 @@
 #!/bin/sh
 
-_install_script() {
-        folder=$1
-        script=$2
-        if [ -f "$folder/$script" ]; then
-                echo "Running $script for $folder"
-                (
-                        cd "$folder" \
-                                && "./$script"
-
-                )
-        fi
-
-}
-
-_install_config_files() {
-        folder=$1
-        _install_script "$folder" 'install-config.sh'
-}
-
-
 _get_native_package_manager() {
         if which dpkg > '/dev/null' 2>&1; then
                 printf 'dpkg'
@@ -109,7 +89,7 @@ do
                                                 && "./$install_native_script_name"
                                 )
 
-                                _install_config_files "$folder"
+                                ./install-config-files.sh "$folder"
                                 ./install-bin-scripts.sh "$folder"
                                 ./install-alias-files.sh "$folder"
                                 ./install-export-files.sh "$folder"
@@ -120,7 +100,7 @@ do
                                                 && "./$install_non_native_script_name"
                                 )
 
-                                _install_config_files "$folder"
+                                ./install-config-files.sh "$folder"
                                 ./install-bin-scripts.sh "$folder"
                                 ./install-alias-files.sh "$folder"
                                 ./install-export-files.sh "$folder"
@@ -131,7 +111,7 @@ do
                                                 && './install-with-no-package-manager.sh'
                                 )
 
-                                _install_config_files "$folder"
+                                ./install-config-files.sh "$folder"
                                 ./install-bin-scripts.sh "$folder"
                                 ./install-alias-files.sh "$folder"
                                 ./install-export-files.sh "$folder"
