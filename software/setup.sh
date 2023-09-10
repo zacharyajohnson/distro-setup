@@ -19,20 +19,6 @@ _install_config_files() {
         _install_script "$folder" 'install-config.sh'
 }
 
-_install_bin_scripts() {
-        folder=$1
-        _install_script "$folder" 'install-bin-scripts.sh'
-}
-
-_install_aliases() {
-        folder=$1
-        _install_script "$folder" 'install-alias.sh'
-}
-
-_install_exports() {
-        folder=$1
-        _install_script "$folder" 'install-export.sh'
-}
 
 _get_native_package_manager() {
         if which dpkg > '/dev/null' 2>&1; then
@@ -124,9 +110,9 @@ do
                                 )
 
                                 _install_config_files "$folder"
-                                _install_bin_scripts "$folder"
-                                _install_aliases "$folder"
-                                _install_exports "$folder"
+                                ./install-bin-scripts.sh "$folder"
+                                ./install-alias-files.sh "$folder"
+                                ./install-export-files.sh "$folder"
                         elif [ -e "$folder/$install_non_native_script_name" ]; then
                                 printf 'Installing %s with %s\n' "$folder" "$non_native_package_manager"
                                 (
@@ -135,9 +121,9 @@ do
                                 )
 
                                 _install_config_files "$folder"
-                                _install_bin_scripts "$folder"
-                                _install_aliases "$folder"
-                                _install_exports "$folder"
+                                ./install-bin-scripts.sh "$folder"
+                                ./install-alias-files.sh "$folder"
+                                ./install-export-files.sh "$folder"
                         elif [ -e "$folder/install-with-no-package-manager.sh" ]; then
                                 printf 'Manually installing %s with no package manager\n' "$folder"
                                 (
@@ -146,9 +132,9 @@ do
                                 )
 
                                 _install_config_files "$folder"
-                                _install_bin_scripts "$folder"
-                                _install_aliases "$folder"
-                                _install_exports "$folder"
+                                ./install-bin-scripts.sh "$folder"
+                                ./install-alias-files.sh "$folder"
+                                ./install-export-files.sh "$folder"
                         else
                                 printf 'Install script does not exist for %s. Skipping...\n\n' "$folder"
                         fi
