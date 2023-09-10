@@ -13,7 +13,7 @@ _shell_file_line_count_by_extension () {
         # Iterate through each file extension and call the function
         for file_extension in "$@"
         do
-                printf "Total for .$file_extension\n"
+                printf "Total for .%s\n" "$file_extension"
                 find "$directory" -type f -name "*.$file_extension" -exec wc -l {} + | sort -n
         done
 
