@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version='3.11'
+version='3.12'
 folder_name="lgogdownloader-$version"
 zip_name="lgogdownloader-$version.tar.gz"
 
