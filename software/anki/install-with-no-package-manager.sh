@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version='2.1.65'
+version='23.12.1'
 file_name="anki-$version-linux-qt6"
 zipped_file_name="$file_name.tar.zst"
 
