@@ -23,3 +23,4 @@ _shell_file_line_count_by_extension () {
 
 alias shell-file-line-count-by-extension='_shell_file_line_count_by_extension'
 alias shell-find-dirs='find . -maxdepth 1 -type d'
+alias rm='rm -i'
