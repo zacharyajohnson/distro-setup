@@ -93,6 +93,7 @@ do
                                 ./install-bin-scripts.sh "$folder"
                                 ./install-alias-files.sh "$folder"
                                 ./install-export-files.sh "$folder"
+                                ./move-cron-files.sh "$folder"
                         elif [ -e "$folder/$install_non_native_script_name" ]; then
                                 printf 'Installing %s with %s\n' "$folder" "$non_native_package_manager"
                                 (
@@ -104,6 +105,7 @@ do
                                 ./install-bin-scripts.sh "$folder"
                                 ./install-alias-files.sh "$folder"
                                 ./install-export-files.sh "$folder"
+                                ./move-cron-files.sh "$folder"
                         elif [ -e "$folder/install-with-no-package-manager.sh" ]; then
                                 printf 'Manually installing %s with no package manager\n' "$folder"
                                 (
@@ -115,6 +117,7 @@ do
                                 ./install-bin-scripts.sh "$folder"
                                 ./install-alias-files.sh "$folder"
                                 ./install-export-files.sh "$folder"
+                                ./move-cron-files.sh "$folder"
                         else
                                 printf 'Install script does not exist for %s. Skipping...\n\n' "$folder"
                         fi
