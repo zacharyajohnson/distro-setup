@@ -3,24 +3,31 @@
 # This script will download all the starred repos
 # for a user based on the $GITHUB_USERNAME environment variable
 
-current_dir="$(pwd)"
 base_dir="$1"
 
 if [ -z "$base_dir" ]; then
-        echo "Provide folder path to store GitHub repos"
-        exit
+        echo 'Provide folder path to store GitHub repos'
+        exit 1
+fi
+
+if [ ! -d "$base_dir" ]; then
+        echo "Directory $base_dir does not exist or isn't a directory"
+        exit 1
+fi
+
+if [ -z "$CLOUD_FOLDER" ]; then
+        echo 'CLOUD_FOLDER environment variable not set'
 fi
 
 if [ -z "$GITHUB_USERNAME" ]; then
         echo 'GITHUB_USERNAME environment variable not set'
-        exit
+        exit 1
 fi
 
 if [ -z "$GITHUB_READ_TOKEN" ]; then
         echo 'GITHUB_READ_TOKEN not set. Please provide read only api token for GitHub'
-        exit
+        exit 1
 fi
-
 
 echo "Storing repos at $base_dir"
 echo "Downloading starred repos for user $GITHUB_USERNAME"
@@ -55,17 +62,17 @@ while [ -n "$github_starred_repos_endpoint" ]; do
                        if git rev-parse --show-toplevel > /dev/null 2>&1; then
                                echo "$repo_url exists in $repo_clone_path. Updating..."
                                git pull
-                               cd "$current_dir"
+                               cd "$base_dir"
                                #sleep 10s
                                continue
                        else
                                echo "Directory $repo_clone_path exists but isn't a git directory. Skipping..."
                                #sleep 5s
-                               cd "$current_dir"
+                               cd "$base_dir"
                        fi
                else
                        mkdir -p "$repo_clone_path"
-                       cd "$current_dir"
+                       cd "$base_dir"
                        echo "Cloning $repo_url from user $owner_username into $repo_path"
                        #sleep 10s
 
