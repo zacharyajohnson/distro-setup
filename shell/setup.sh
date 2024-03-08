@@ -2,14 +2,18 @@
 
 set -e
 
+script_folder="$HOME/.distro-config/bin"
 export_folder="$HOME/.distro-config/export"
 alias_folder="$HOME/.distro-config/alias"
 
+mkdir -p "$script_folder"
 mkdir -p "$export_folder"
 mkdir -p "$alias_folder"
 
 # Copy over inputrc so I stop hearing that damn bell
 cp 'common/.inputrc' "$HOME"
+
+cp common/script/* "$script_folder"
 
 # Copy over exports that are common across all shells
 cp 'common/common-export.sh' "$export_folder"
