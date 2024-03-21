@@ -1,6 +1,9 @@
 #!/bin/sh
 
-set -e
+distro_config_backup_folder="$HOME/.distro-config/backup/bash"
+mkdir -p "$distro_config_backup_folder"
+
+timestamp=$(date "+%Y-%m-%d-%H%M%S")
 
 if [ -z "$HOME" ]; then
         echo "HOME environment variable is not set"
@@ -8,13 +11,13 @@ if [ -z "$HOME" ]; then
 fi
 
 if [ -f "$HOME/.bashrc" ]; then
-       echo ".bashrc exists. Backing up at $HOME/.backup-bashrc"
-       cp "$HOME/.bashrc" "$HOME/.backup-bashrc"
+       echo ".bashrc exists. Backing up at $distro_config_backup_folder"
+       cp "$HOME/.bashrc" "$distro_config_backup_folder/.backup-bashrc-$timestamp"
 fi
 
 if [ -f "$HOME/.bash_profile" ]; then
-       echo ".bash_profile exists. Backing up at $HOME/.backup-bash-profile"
-       cp "$HOME/.bash_profile" "$HOME/.backup-bash-profile"
+       echo ".bash_profile exists. Backing up at $distro_config_backup_folder"
+       cp "$HOME/.bash_profile" "$distro_config_backup_folder/.backup-bash-profile-$timestamp"
 fi
 
 # Copy .bashrc and .bash_profile config files to home folder
