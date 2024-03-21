@@ -12,6 +12,6 @@ elif [ "$answer" -eq 2 ]; then
         sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 else
         printf 'Invalid option. Aborting...\n'
-        exit
+        exit 1
 fi
 

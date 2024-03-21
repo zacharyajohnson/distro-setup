@@ -3,6 +3,11 @@
 folder=$1
 distro_config_bin_folder="$HOME/.distro-config/bin"
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 if [ -z "$folder" ]; then
         echo "Provide folder to look for bin scripts."
 elif [ -d "$folder/bin" ]; then

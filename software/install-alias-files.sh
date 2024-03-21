@@ -3,6 +3,11 @@
 folder=$1
 distro_config_alias_folder="$HOME/.distro-config/alias/$folder"
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 if [ -z "$folder" ]; then
         echo "Provide folder to look for alias files."
 elif [ -d "$folder/alias" ]; then

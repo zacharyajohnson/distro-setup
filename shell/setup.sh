@@ -2,6 +2,11 @@
 
 set -e
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 script_folder="$HOME/.distro-config/bin"
 export_folder="$HOME/.distro-config/export"
 alias_folder="$HOME/.distro-config/alias"

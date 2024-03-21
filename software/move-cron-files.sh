@@ -4,6 +4,11 @@ folder=$1
 cron_folder='cron'
 distro_config_cron_folder="$HOME/.distro-config/$cron_folder/$folder"
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 if [ -z "$folder" ]; then
         echo "Provide folder to look for cron files"
 elif [ -d "$folder/$cron_folder" ]; then
@@ -11,5 +16,4 @@ elif [ -d "$folder/$cron_folder" ]; then
         mkdir -p "$distro_config_cron_folder"
         cp -r "$folder/$cron_folder/." "$distro_config_cron_folder"
 fi
-
 

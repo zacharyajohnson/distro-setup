@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 if [ -f "$HOME/.profile" ]; then
        echo ".profile exists. Backing up at $HOME/.backup-profile"
        cp "$HOME/.profile" "$HOME/.backup-profile"

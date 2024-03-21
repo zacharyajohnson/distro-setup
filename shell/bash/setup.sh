@@ -2,6 +2,11 @@
 
 set -e
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 if [ -f "$HOME/.bashrc" ]; then
        echo ".bashrc exists. Backing up at $HOME/.backup-bashrc"
        cp "$HOME/.bashrc" "$HOME/.backup-bashrc"
