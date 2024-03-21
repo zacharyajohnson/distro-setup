@@ -15,10 +15,6 @@ if [ ! -d "$base_dir" ]; then
         exit 1
 fi
 
-if [ -z "$CLOUD_FOLDER" ]; then
-        echo 'CLOUD_FOLDER environment variable not set'
-fi
-
 if [ -z "$GITHUB_USERNAME" ]; then
         echo 'GITHUB_USERNAME environment variable not set'
         exit 1
