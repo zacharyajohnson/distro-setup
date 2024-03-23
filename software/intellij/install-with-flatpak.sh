@@ -6,10 +6,12 @@ read -r answer
 
 if [ -z "$answer" ] || [ "$answer" -eq 1 ]; then
         printf 'Installing IntelliJ Community\n'
-        sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
+        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak install --user flathub com.jetbrains.IntelliJ-IDEA-Community
 elif [ "$answer" -eq 2 ]; then
         printf 'Installing Intellij Ultimate\n'
-        sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Ultimate
+        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak install --user flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 else
         printf 'Invalid option. Aborting...\n'
         exit 1
