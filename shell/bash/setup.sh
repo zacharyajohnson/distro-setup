@@ -1,14 +1,20 @@
 #!/bin/sh
 
+if [ -z "$HOME" ]; then
+        echo "HOME environment variable is not set"
+        exit 1
+fi
+
 distro_config_backup_folder="$HOME/.distro-config/backup/bash"
 mkdir -p "$distro_config_backup_folder"
 
 timestamp=$(date "+%Y-%m-%d-%H%M%S")
 
-if [ -z "$HOME" ]; then
-        echo "HOME environment variable is not set"
+if [ -z "$timestamp" ]; then
+        echo "bash/setup.sh: Could not generate timestamp using date command"
         exit 1
 fi
+
 
 if [ -f "$HOME/.bashrc" ]; then
        echo ".bashrc exists. Backing up at $distro_config_backup_folder"
