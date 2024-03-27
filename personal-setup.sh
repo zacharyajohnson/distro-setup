@@ -1,7 +1,7 @@
 #!/bin/sh
 
-profiles=$(echo anki,discord,git,intellij,keepassxc,lgog-downloader\
-,lutris,mgba,dropbox,proprietary-nvidia-drivers,psensor,qbittorrent\
-,qdirstat,rustlang,sddm,shellcheck,steam,tmux,vim,wine)
+profiles=$(echo anki,cron,discord,flatpak,git,intellij,keepassxc,lgog-downloader\
+,mgba,dropbox,proprietary-nvidia-drivers,psensor,qbittorrent\
+,qdirstat,rustlang,shellcheck,steam,tmux,vim,wine,xfce)
 
 ./setup.sh --profiles="$profiles"
