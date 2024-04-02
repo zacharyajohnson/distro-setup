@@ -28,24 +28,18 @@ _get_non_native_package_manager() {
 
 }
 
-profile_option=$(echo "$1" | awk -F '=' '{print $1}')
-profile_option_values="$(echo "$1" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
+software_option=$(echo "$1" | awk -F '=' '{print $1}')
+software_option_values="$(echo "$1" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
 
-if [ -n "$profile_option" ]; then
-        if [ "$profile_option" != '--profiles' ]; then
-                echo "Invalid option. Only valid option is --profiles"
+if [ -n "$software_option" ]; then
+        if [ "$software_option" != '--software' ]; then
+                echo "Invalid option. Only valid option is --software"
                 exit 1
-        elif [ -z "$profile_option_values" ]; then
-                echo "No arguments for --profiles"
+        elif [ -z "$software_option_values" ]; then
+                echo "No arguments for --software"
                 exit 1
         fi
 fi
-
-
-if [ -z "$profile_option_values" ]; then
-        profile_option_values='common'
-fi
-
 
 native_package_manager="$(_get_native_package_manager)"
 non_native_package_manager="$(_get_non_native_package_manager)"
@@ -58,29 +52,27 @@ dirname="$(dirname "$0")"
 # command works correctly.
 for folder in $(echo "$dirname/*/")
 do
-        folder_profiles=$(cat "$folder/.profiles" 2>'/dev/null')
 
-        # If the folders profile for a piece of software doesn't exist, default to common
-        # for it
-        if [ -z "$folder_profiles" ]; then
-                folder_profiles='common'
-        fi
-
+        folder_name="$(basename "$folder")"
         should_install=false
 
-        for profile_option_value in $profile_option_values
+        for software_option_value in $software_option_values
         do
-                if echo "$folder_profiles" | grep -xq "$profile_option_value"; then
+                if [ "$software_option_value" = "$folder_name" ]; then
                         should_install=true
                         break;
                 fi
         done
+
+        if [ -z "$software_option_values" ]; then
+                should_install=true
+        fi
      
         install_native_script_name="install-with-$native_package_manager.sh"
         install_non_native_script_name="install-with-$non_native_package_manager.sh"
 
         if [ "$should_install" = true ]; then
-                printf '\nWould you like to install %s?\n' "$folder"
+                printf '\nWould you like to install %s?\n' "$folder_name"
                 read -r answer
 
                 if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
@@ -118,6 +110,6 @@ do
                         printf 'Skipping %s installation.\n\n' "$folder"
                 fi
         else
-                printf '%s is not part of profile(s) (%s). Skipping...\n' "$folder" "$profile_option_values"
+                printf '%s is not part of --software(s) (%s). Skipping...\n' "$folder" "$software_option_values"
         fi
 done
