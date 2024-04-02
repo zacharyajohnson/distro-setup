@@ -28,30 +28,18 @@ _get_non_native_package_manager() {
 
 }
 
-software_option=$(echo "$1" | awk -F '=' '{print $1}')
-software_option_values="$(echo "$1" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
+_setup_software() {
+        dirname="$(dirname "$0")"
 
-if [ -n "$software_option" ]; then
-        if [ "$software_option" != '--software' ]; then
-                echo "Invalid option. Only valid option is --software"
-                exit 1
-        elif [ -z "$software_option_values" ]; then
-                echo "No arguments for --software"
-                exit 1
+        folder="$1"
+        software_option_values="$2"
+        native_package_manager="$3"
+        non_native_package_manager="$4"
+
+        if [ "$#" -lt 4 ]; then
+                echo "$0: _setup_software usage: folder software_option_values native_package_manager non_native_package_manager. Args: $*"
+                return 1
         fi
-fi
-
-native_package_manager="$(_get_native_package_manager)"
-non_native_package_manager="$(_get_non_native_package_manager)"
-
-dirname="$(dirname "$0")"
-
-# Get all folders in the dir and strip the ending slash in the folder.
-# This is used to skip trying to install already installed packages..
-# We need to get rid of the ending slash so our package query
-# command works correctly.
-for folder in $(echo "$dirname/*/")
-do
 
         folder_name="$(basename "$folder")"
         should_install=false
@@ -112,4 +100,41 @@ do
         else
                 printf '%s is not part of --software(s) (%s). Skipping...\n' "$folder" "$software_option_values"
         fi
+}
+
+software_option=$(echo "$1" | awk -F '=' '{print $1}')
+software_option_values="$(echo "$1" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
+
+if [ -n "$software_option" ]; then
+        if [ "$software_option" != '--software' ]; then
+                echo "Invalid option. Only valid option is --software"
+                exit 1
+        elif [ -z "$software_option_values" ]; then
+                echo "No arguments for --software"
+                exit 1
+        fi
+fi
+
+native_package_manager="$(_get_native_package_manager)"
+
+dirname="$(dirname "$0")"
+non_native_package_managers='flatpak brew'
+
+# Give me a chance to install other package managers
+# in case some software are only setup to be installed
+# using them
+for non_native_package_manager_folder in $non_native_package_managers
+do
+        _setup_software "$dirname/$non_native_package_manager_folder" "$software_option_values" "$native_package_manager" 'none'
+done
+
+
+non_native_package_manager="$(_get_non_native_package_manager)"
+# Get all folders in the dir and strip the ending slash in the folder.
+# This is used to skip trying to install already installed packages..
+# We need to get rid of the ending slash so our package query
+# command works correctly.
+for folder in $(echo "$dirname/*/")
+do
+        _setup_software "$folder" "$software_option_values" "$native_package_manager" "$non_native_package_manager"
 done
