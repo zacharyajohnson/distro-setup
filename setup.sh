@@ -2,10 +2,6 @@
 
 set -e
 
-(
-        cd shell && ./setup.sh
-)
+"$(dirname "$0")"'/shell/setup.sh'
 
-(
-        cd software && ./setup.sh "$1"
-)
+"$(dirname "$0")"'/software/setup.sh' "$1"

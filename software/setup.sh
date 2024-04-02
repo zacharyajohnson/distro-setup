@@ -50,11 +50,13 @@ fi
 native_package_manager="$(_get_native_package_manager)"
 non_native_package_manager="$(_get_non_native_package_manager)"
 
+dirname="$(dirname "$0")"
+
 # Get all folders in the dir and strip the ending slash in the folder.
 # This is used to skip trying to install already installed packages..
 # We need to get rid of the ending slash so our package query
 # command works correctly.
-for folder in $(echo */ | sed 's/\// /g')
+for folder in $(echo "$dirname/*/")
 do
         folder_profiles=$(cat "$folder/.profiles" 2>'/dev/null')
 
@@ -84,40 +86,31 @@ do
                 if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
                         if [ -e "$folder/$install_native_script_name" ]; then
                                 printf 'Installing %s with %s\n' "$folder" "$native_package_manager"
-                                (
-                                        cd "$folder" \
-                                                && "./$install_native_script_name"
-                                )
+                                "$folder/$install_native_script_name"
 
-                                ./install-config-files.sh "$folder"
-                                ./install-bin-scripts.sh "$folder"
-                                ./install-alias-files.sh "$folder"
-                                ./install-export-files.sh "$folder"
-                                ./move-cron-files.sh "$folder"
+                                "$dirname"'/install-config-files.sh' "$folder"
+                                "$dirname"'/install-bin-scripts.sh' "$folder"
+                                "$dirname"'/install-alias-files.sh' "$folder"
+                                "$dirname"'/install-export-files.sh' "$folder"
+                                "$dirname"'/move-cron-files.sh' "$folder"
                         elif [ -e "$folder/$install_non_native_script_name" ]; then
                                 printf 'Installing %s with %s\n' "$folder" "$non_native_package_manager"
-                                (
-                                        cd "$folder" \
-                                                && "./$install_non_native_script_name"
-                                )
+                                "$folder/$install_non_native_script_name"
 
-                                ./install-config-files.sh "$folder"
-                                ./install-bin-scripts.sh "$folder"
-                                ./install-alias-files.sh "$folder"
-                                ./install-export-files.sh "$folder"
-                                ./move-cron-files.sh "$folder"
+                                "$dirname"'/install-config-files.sh' "$folder"
+                                "$dirname"'/install-bin-scripts.sh' "$folder"
+                                "$dirname"'/install-alias-files.sh' "$folder"
+                                "$dirname"'/install-export-files.sh' "$folder"
+                                "$dirname"'/move-cron-files.sh' "$folder"
                         elif [ -e "$folder/install-with-no-package-manager.sh" ]; then
                                 printf 'Manually installing %s with no package manager\n' "$folder"
-                                (
-                                        cd "$folder" \
-                                                && './install-with-no-package-manager.sh'
-                                )
+                                "$folder/install-with-no-package-manager.sh"
 
-                                ./install-config-files.sh "$folder"
-                                ./install-bin-scripts.sh "$folder"
-                                ./install-alias-files.sh "$folder"
-                                ./install-export-files.sh "$folder"
-                                ./move-cron-files.sh "$folder"
+                                "$dirname"'/install-config-files.sh' "$folder"
+                                "$dirname"'/install-bin-scripts.sh' "$folder"
+                                "$dirname"'/install-alias-files.sh' "$folder"
+                                "$dirname"'/install-export-files.sh' "$folder"
+                                "$dirname"'/move-cron-files.sh' "$folder"
                         else
                                 printf 'Install script does not exist for %s. Skipping...\n\n' "$folder"
                         fi

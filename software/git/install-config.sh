@@ -5,4 +5,5 @@ if [ -z "$HOME" ]; then
         exit 1
 fi
 
-cp config/.gitconfig "$HOME"
+dirname="$(dirname "$0")"
+cp "$dirname"'/config/.gitconfig' "$HOME"

@@ -1,7 +1,8 @@
 #!/bin/sh
 
 folder=$1
-distro_config_alias_folder="$HOME/.distro-config/alias/$folder"
+folder_name="$(basename "$folder")"
+distro_config_alias_folder="$HOME/.distro-config/alias/$folder_name"
 
 if [ -z "$HOME" ]; then
         echo "HOME environment variable is not set"

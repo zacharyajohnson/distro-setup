@@ -1,27 +1,28 @@
 #!/bin/sh
 
-destination_folder='/opt/discord'
-binary_file_name='Discord'
-symlink_path='/usr/bin/discord'
+(
+        cd '/tmp' || exit
 
-version='0.0.39'
-tar_name="discord-$version.tar.gz"
-unzipped_folder_name='Discord'
+        destination_folder='/opt/discord'
+        binary_file_name='Discord'
+        symlink_path='/usr/bin/discord'
 
-# Do this for a clean install each time
-if [ -d "$destination_folder" ]; then
-        sudo rm -ir "$destination_folder"
-fi
+        version='0.0.39'
+        tar_name="discord-$version.tar.gz"
+        unzipped_folder_name='Discord'
 
-sudo mkdir -p "$destination_folder"
+        # Do this for a clean install each time
+        if [ -d "$destination_folder" ]; then
+                sudo rm -ir "$destination_folder"
+        fi
 
-curl -O "https://dl.discordapp.net/apps/linux/$version/$tar_name"
+        sudo mkdir -p "$destination_folder"
 
-tar -xvf "$tar_name"
+        curl -O "https://dl.discordapp.net/apps/linux/$version/$tar_name"
 
-sudo mv "$unzipped_folder_name"/* "$destination_folder"
+        tar -xvf "$tar_name"
 
-sudo ln -sf "$destination_folder/$binary_file_name" "$symlink_path"
+        sudo mv "$unzipped_folder_name"/* "$destination_folder"
 
-rm -i "$tar_name"
-rm -i "$unzipped_folder_name"
+        sudo ln -sf "$destination_folder/$binary_file_name" "$symlink_path"
+)

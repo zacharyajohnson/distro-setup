@@ -8,10 +8,6 @@ if [ -z "$folder" ]; then
         echo "Provide folder to look for config files"
 elif [ -f "$folder/$install_config_file" ]; then
         echo "Installing config files for $folder"
-        (
-                cd "$folder" \
-                        && "./$install_config_file"
-
-        )
+        "$folder/$install_config_file"
 fi
 

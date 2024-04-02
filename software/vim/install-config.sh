@@ -1,3 +1,5 @@
 #!/bin/sh
 
-mkdir -p "$HOME/.vim" && cp -r config/* "$HOME/.vim" && chown -R "$USER" "$HOME/.vim"
+dirname="$(dirname "$0")"
+
+mkdir -p "$HOME/.vim" && cp -r "$dirname"/config/* "$HOME/.vim"

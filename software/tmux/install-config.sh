@@ -1,3 +1,4 @@
 #!/bin/sh
 
-cp -r config/. "$HOME"
+dirname="$(dirname "$0")"
+cp -r "$dirname"/config/. "$HOME"

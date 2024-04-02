@@ -1,3 +1,4 @@
 #!/bin/sh
 
-cp 'config/.xinitrc' "$HOME"
+dirname="$(dirname "$0")"
+cp "$dirname"'/config/.xinitrc' "$HOME"

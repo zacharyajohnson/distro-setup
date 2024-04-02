@@ -1,8 +1,9 @@
 #!/bin/sh
 
 folder=$1
+folder_name="$(basename "$folder")"
 cron_folder='cron'
-distro_config_cron_folder="$HOME/.distro-config/$cron_folder/$folder"
+distro_config_cron_folder="$HOME/.distro-config/$cron_folder/$folder_name"
 
 if [ -z "$HOME" ]; then
         echo "HOME environment variable is not set"
