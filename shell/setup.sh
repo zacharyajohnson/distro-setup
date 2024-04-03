@@ -1,5 +1,4 @@
 #!/bin/sh
-
 if [ -z "$HOME" ]; then
         echo "HOME environment variable is not set"
         exit 1
@@ -15,19 +14,45 @@ mkdir -p "$alias_folder"
 
 dirname="$(dirname "$0")"
 # Copy over inputrc so I stop hearing that damn bell
-cp "$dirname"'/common/.inputrc' "$HOME"
 
-cp "$dirname"/common/script/* "$script_folder"
 
+inputrc="$dirname"'/common/.inputrc'
+if [ ! -e "$inputrc" ]; then
+        echo "$inputrc does not exist. Aborting..."
+        exit 1
+fi
+cp "$inputrc" "$HOME"
+
+
+common_script="$dirname"'/common/script'
+if [ ! -d "$common_script" ]; then
+        echo "$common_script does not exist. Aborting..."
+        exit 1
+fi
+cp "$common_script"/* "$script_folder"
+
+
+common_export="$dirname"'/common/common-export.sh'
+if [ ! -e "$common_export" ]; then
+        echo "$common_export does not exist. Aborting..."
+        exit 1
+fi
 # Copy over exports that are common across all shells
-cp "$dirname"'/common/common-export.sh' "$export_folder"
+cp "$common_export" "$export_folder"
 
-cp "$dirname"'/common/common-alias.sh' "$alias_folder"
+
+common_alias="$dirname"'/common/common-alias.sh'
+if [ ! -e "$common_alias" ]; then
+        echo "$common_alias does not exist. Aborting..."
+        exit 1
+fi
+cp "$common_alias" "$alias_folder"
 
 # We only want to truly install bourne shell
 # configs if it isn't a symlink to another implementation
 # Example: Debian links /bin/sh to dash while FreeBSD has a true
 # bourne shell implementation
+
 if [ "$SHELL" = '/bin/sh' ] && [ ! -L "$SHELL" ]; then
         echo 'Detected borne shell. Installing configs...'
         "$dirname"'/sh/setup.sh'
@@ -35,4 +60,7 @@ elif [ "$SHELL" = '/bin/bash' ];
 then
         echo 'Detected bash shell. Installing configs...'
         "$dirname"'/bash/setup.sh'
+else
+        echo 'Could not detect shell installed. Aborting...'
+        exit 1
 fi

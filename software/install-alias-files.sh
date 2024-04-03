@@ -11,8 +11,11 @@ fi
 
 if [ -z "$folder" ]; then
         echo "Provide folder to look for alias files."
+        exit 1
 elif [ -d "$folder/alias" ]; then
         echo "Installing alias files for $folder to $distro_config_alias_folder"
         mkdir -p "$distro_config_alias_folder"
         cp -r "$folder/alias/." "$distro_config_alias_folder"
+else
+        echo "Alias folder does not exist for $folder. Skipping..."
 fi

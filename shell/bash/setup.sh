@@ -27,10 +27,22 @@ fi
 
 # Copy .bashrc and .bash_profile config files to home folder
 echo "Overriding .bashrc and .bash_profile at $HOME"
-
 dirname="$(dirname "$0")"
-cat "$dirname"'/../common/common-config.sh' > "$HOME/.bashrc"
+
+common_config="$dirname"'/../common/common-config.sh'
+if [ ! -e "$common_config" ]; then
+        echo "$common_config does not exist. Aborting..."
+        exit 1
+fi
+cat "$common_config" > "$HOME/.bashrc"
+
+bash_profile="$dirname"'/.bash_profile'
+if [ ! -e "$bash_profile" ]; then
+        echo "$bash_profile does not exist. Aborting..."
+        exit 1
+fi
 
 # shellcheck source=/dev/null
-cp "$dirname"'/.bash_profile' "$HOME/.bash_profile" \
+cp "$bash_profile" "$HOME/.bash_profile" \
         && . "$HOME/.bash_profile"
+

@@ -100,6 +100,8 @@ _setup_software() {
         else
                 printf '%s is not part of --software(s) (%s). Skipping...\n' "$folder" "$software_option_values"
         fi
+
+        return 0
 }
 
 software_option=$(echo "$1" | awk -F '=' '{print $1}')
@@ -125,7 +127,10 @@ non_native_package_managers='flatpak brew'
 # using them
 for non_native_package_manager_folder in $non_native_package_managers
 do
-        _setup_software "$dirname/$non_native_package_manager_folder" "$software_option_values" "$native_package_manager" 'none'
+        if ! _setup_software "$dirname/$non_native_package_manager_folder" "$software_option_values" "$native_package_manager" 'none'; then
+                echo "Setup failed for $non_native_package_manager_folder"
+                exit 1
+        fi
 done
 
 
@@ -136,5 +141,10 @@ non_native_package_manager="$(_get_non_native_package_manager)"
 # command works correctly.
 for folder in $(echo "$dirname/*/")
 do
-        _setup_software "$folder" "$software_option_values" "$native_package_manager" "$non_native_package_manager"
+       if ! _setup_software "$folder" "$software_option_values" "$native_package_manager" "$non_native_package_manager"; then
+                echo "Setup failed for $non_native_package_manager_folder"
+                exit 1
+       fi
 done
+
+exit 0

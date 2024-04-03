@@ -25,6 +25,14 @@ fi
 echo "Overriding .profile at $HOME"
 
 dirname="$(dirname "$0")"
-# shellcheck source=/dev/null
-cat "$dirname"'/../common/common-config.sh' > "$HOME/.profile" && . "$HOME/.profile"
 
+common_config="$dirname"'/../common/common-config.sh'
+if [ ! -e "$common_config" ]; then
+        echo "$common_config does not exist. Aborting..."
+        exit 1
+fi
+
+# shellcheck source=/dev/null
+cat "$common_config" > "$HOME/.profile" && . "$HOME/.profile"
+
+exit 0

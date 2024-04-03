@@ -11,8 +11,11 @@ fi
 
 if [ -z "$folder" ]; then
         echo "Provide folder to look for export files."
+        exit 1
 elif [ -d "$folder/export" ]; then
         echo "Installing export files for $folder to $distro_config_export_folder"
         mkdir -p "$distro_config_export_folder"
         cp -r "$folder/export/." "$distro_config_export_folder"
+else
+        echo "Export folder does not exist for $folder. Skipping..."
 fi
