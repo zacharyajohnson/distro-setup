@@ -109,10 +109,10 @@ software_option_values="$(echo "$1" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
 
 if [ -n "$software_option" ]; then
         if [ "$software_option" != '--software' ]; then
-                echo "Invalid option. Only valid option is --software"
+                echo "$0: Invalid option. Only valid option is --software"
                 exit 1
         elif [ -z "$software_option_values" ]; then
-                echo "No arguments for --software"
+                echo "$0: No arguments for --software"
                 exit 1
         fi
 fi
@@ -128,7 +128,7 @@ non_native_package_managers='flatpak brew'
 for non_native_package_manager_folder in $non_native_package_managers
 do
         if ! _setup_software "$dirname/$non_native_package_manager_folder" "$software_option_values" "$native_package_manager" 'none'; then
-                echo "Setup failed for $non_native_package_manager_folder"
+                echo "$0: Setup failed for $non_native_package_manager_folder"
                 exit 1
         fi
 done
@@ -142,9 +142,8 @@ non_native_package_manager="$(_get_non_native_package_manager)"
 for folder in $(echo "$dirname/*/")
 do
        if ! _setup_software "$folder" "$software_option_values" "$native_package_manager" "$non_native_package_manager"; then
-                echo "Setup failed for $non_native_package_manager_folder"
+                echo "$0: Setup failed for $non_native_package_manager_folder"
                 exit 1
        fi
 done
 
-exit 0

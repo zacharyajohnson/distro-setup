@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$HOME" ]; then
-        echo "HOME environment variable is not set"
+        echo "$0: HOME environment variable is not set"
         exit 1
 fi
 
@@ -28,7 +28,7 @@ dirname="$(dirname "$0")"
 
 common_config="$dirname"'/../common/common-config.sh'
 if [ ! -e "$common_config" ]; then
-        echo "$common_config does not exist. Aborting..."
+        echo "$0: $common_config does not exist. Aborting..."
         exit 1
 fi
 

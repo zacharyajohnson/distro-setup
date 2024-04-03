@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$HOME" ]; then
-        echo "HOME environment variable is not set"
+        echo "$0: HOME environment variable is not set"
         exit 1
 fi
 

@@ -6,12 +6,12 @@ cron_folder='cron'
 distro_config_cron_folder="$HOME/.distro-config/$cron_folder/$folder_name"
 
 if [ -z "$HOME" ]; then
-        echo "HOME environment variable is not set"
+        echo "$0: HOME environment variable is not set"
         exit 1
 fi
 
 if [ -z "$folder" ]; then
-        echo "Provide folder to look for cron files"
+        echo "$0: Provide folder to look for cron files"
         exit 1
 elif [ -d "$folder/$cron_folder" ]; then
         echo "Moving cron files for $folder to $distro_config_cron_folder"
