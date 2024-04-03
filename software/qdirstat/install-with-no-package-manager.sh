@@ -5,7 +5,7 @@
 
         tar -xvf qdirstat.tar.gz
 
-        cd qdirstat
+        cd qdirstat || exit
         makepkg -si qdirstat
 )
 

@@ -6,7 +6,7 @@
         curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/dropbox.tar.gz
         tar -xvf dropbox.tar.gz
 
-        cd dropbox/
+        cd dropbox/ || exit
         makepkg -si
 )
 

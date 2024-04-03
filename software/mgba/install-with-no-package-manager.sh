@@ -5,10 +5,10 @@
 
         git clone https://github.com/mgba-emu/mgba
 
-        cd mgba
+        cd mgba || exit
 
         mkdir build
-        cd build
+        cd build || exit
 
         cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
         make

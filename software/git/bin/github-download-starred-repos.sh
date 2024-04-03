@@ -54,21 +54,21 @@ while [ -n "$github_starred_repos_endpoint" ]; do
 
 
                if [ -d "$repo_clone_path" ]; then
-                       cd "$repo_clone_path"
+                       cd "$repo_clone_path" || exit
                        if git rev-parse --show-toplevel > /dev/null 2>&1; then
                                echo "$repo_url exists in $repo_clone_path. Updating..."
                                git pull
-                               cd "$base_dir"
+                               cd "$base_dir" || exit
                                #sleep 10s
                                continue
                        else
                                echo "Directory $repo_clone_path exists but isn't a git directory. Skipping..."
                                #sleep 5s
-                               cd "$base_dir"
+                               cd "$base_dir" || exit
                        fi
                else
                        mkdir -p "$repo_clone_path"
-                       cd "$base_dir"
+                       cd "$base_dir" || exit
                        echo "Cloning $repo_url from user $owner_username into $repo_path"
                        #sleep 10s
 
