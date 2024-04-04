@@ -6,22 +6,22 @@
 base_dir="$1"
 
 if [ -z "$base_dir" ]; then
-        echo "$0: Provide folder path to store GitHub repos"
+        echo "$0: Provide folder path to store GitHub repos" >&2
         exit 1
 fi
 
 if [ ! -d "$base_dir" ]; then
-        echo "$0: Directory $base_dir does not exist or isn't a directory"
+        echo "$0: Directory $base_dir does not exist or isn't a directory" >&2
         exit 1
 fi
 
 if [ -z "$GITHUB_USERNAME" ]; then
-        echo "$0: GITHUB_USERNAME environment variable not set"
+        echo "$0: GITHUB_USERNAME environment variable not set" >&2
         exit 1
 fi
 
 if [ -z "$GITHUB_READ_TOKEN" ]; then
-        echo "$0: GITHUB_READ_TOKEN not set. Please provide read only api token for GitHub"
+        echo "$0: GITHUB_READ_TOKEN not set. Please provide read only api token for GitHub" >&2
         exit 1
 fi
 

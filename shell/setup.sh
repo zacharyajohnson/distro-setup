@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ -z "$HOME" ]; then
-        echo "$0 HOME environment variable is not set"
+        echo "$0 HOME environment variable is not set" >&2
         exit 1
 fi
 
@@ -18,7 +18,7 @@ dirname="$(dirname "$0")"
 
 inputrc="$dirname"'/common/.inputrc'
 if [ ! -e "$inputrc" ]; then
-        echo "$0: $inputrc does not exist. Aborting..."
+        echo "$0: $inputrc does not exist. Aborting..." >&2
         exit 1
 fi
 cp "$inputrc" "$HOME"
@@ -26,7 +26,7 @@ cp "$inputrc" "$HOME"
 
 common_script="$dirname"'/common/script'
 if [ ! -d "$common_script" ]; then
-        echo "$0: $common_script does not exist. Aborting..."
+        echo "$0: $common_script does not exist. Aborting..." >&2
         exit 1
 fi
 cp "$common_script"/* "$script_folder"
@@ -34,7 +34,7 @@ cp "$common_script"/* "$script_folder"
 
 common_export="$dirname"'/common/common-export.sh'
 if [ ! -e "$common_export" ]; then
-        echo "$0: $common_export does not exist. Aborting..."
+        echo "$0: $common_export does not exist. Aborting..." >&2
         exit 1
 fi
 # Copy over exports that are common across all shells
@@ -43,7 +43,7 @@ cp "$common_export" "$export_folder"
 
 common_alias="$dirname"'/common/common-alias.sh'
 if [ ! -e "$common_alias" ]; then
-        echo "$0: $common_alias does not exist. Aborting..."
+        echo "$0: $common_alias does not exist. Aborting..." >&2
         exit 1
 fi
 cp "$common_alias" "$alias_folder"
@@ -61,6 +61,6 @@ then
         echo 'Detected bash shell. Installing configs...'
         "$dirname"'/bash/setup.sh'
 else
-        echo "$0: Could not detect shell installed. Aborting..."
+        echo "$0: Could not detect shell installed. Aborting..." >&2
         exit 1
 fi

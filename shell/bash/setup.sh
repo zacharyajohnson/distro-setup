@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set"
+        echo "$0: HOME environment variable is not set" >&2
         exit 1
 fi
 
@@ -9,9 +9,8 @@ distro_config_backup_folder="$HOME/.distro-config/backup/bash"
 mkdir -p "$distro_config_backup_folder"
 
 timestamp=$(date "+%Y-%m-%d-%H%M%S")
-
 if [ -z "$timestamp" ]; then
-        echo "$0: Could not generate timestamp using date command"
+        echo "$0: Could not generate timestamp using date command" >&2
         exit 1
 fi
 
@@ -31,14 +30,14 @@ dirname="$(dirname "$0")"
 
 common_config="$dirname"'/../common/common-config.sh'
 if [ ! -e "$common_config" ]; then
-        echo "$0: $common_config does not exist. Aborting..."
+        echo "$0: $common_config does not exist. Aborting..." >&2
         exit 1
 fi
 cat "$common_config" > "$HOME/.bashrc"
 
 bash_profile="$dirname"'/.bash_profile'
 if [ ! -e "$bash_profile" ]; then
-        echo "$0: $bash_profile does not exist. Aborting..."
+        echo "$0: $bash_profile does not exist. Aborting..." >&2
         exit 1
 fi
 
