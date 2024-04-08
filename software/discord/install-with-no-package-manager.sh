@@ -7,13 +7,13 @@
         binary_file_name='Discord'
         symlink_path='/usr/bin/discord'
 
-        version='0.0.39'
+        version='0.0.40'
         tar_name="discord-$version.tar.gz"
         unzipped_folder_name='Discord'
 
         # Do this for a clean install each time
         if [ -d "$destination_folder" ]; then
-                sudo rm -ir "$destination_folder"
+                sudo rm -r "$destination_folder"
         fi
 
         sudo mkdir -p "$destination_folder"
