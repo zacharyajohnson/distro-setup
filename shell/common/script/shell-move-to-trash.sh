@@ -20,5 +20,5 @@ trash_folder="$HOME/trash/$timestamp"
 
 things_to_move="$*"
 
-mkdir --parents "$trash_folder" \
-        && mv --interactive $things_to_move "$trash_folder"
+mkdir -p "$trash_folder" \
+        && mv -i $things_to_move "$trash_folder"
