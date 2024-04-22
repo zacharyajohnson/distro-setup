@@ -3,7 +3,7 @@
 (
         cd '/tmp' || exit
 
-        version='23.12.1'
+        version='24.04.1'
         file_name="anki-$version-linux-qt6"
         zipped_file_name="$file_name.tar.zst"
 
