@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# -lt 2 ]; then
-            echo "Usage: shell-file-line-count-by-extension <directory> <file_extension1> <file_extension2> ..."
+            echo "$0 usage: directory file_extension1 file_extension2 ..." >&2
             exit 1
 fi
 
