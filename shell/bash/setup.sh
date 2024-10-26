@@ -5,8 +5,8 @@ if [ -z "$HOME" ]; then
         exit 1
 fi
 
-distro_config_backup_folder="$HOME/.distro-config/backup/bash"
-mkdir -p "$distro_config_backup_folder"
+distro_backup_folder="$HOME/.distro/backup/bash"
+mkdir -p "$distro_backup_folder"
 
 timestamp=$(date "+%Y-%m-%d-%H%M%S")
 if [ -z "$timestamp" ]; then
@@ -15,13 +15,13 @@ if [ -z "$timestamp" ]; then
 fi
 
 if [ -f "$HOME/.bashrc" ]; then
-       echo ".bashrc exists. Backing up at $distro_config_backup_folder"
-       cp "$HOME/.bashrc" "$distro_config_backup_folder/.backup-bashrc-$timestamp"
+       echo ".bashrc exists. Backing up at $distro_backup_folder"
+       cp "$HOME/.bashrc" "$distro_backup_folder/.backup-bashrc-$timestamp"
 fi
 
 if [ -f "$HOME/.bash_profile" ]; then
-       echo ".bash_profile exists. Backing up at $distro_config_backup_folder"
-       cp "$HOME/.bash_profile" "$distro_config_backup_folder/.backup-bash-profile-$timestamp"
+       echo ".bash_profile exists. Backing up at $distro_backup_folder"
+       cp "$HOME/.bash_profile" "$distro_backup_folder/.backup-bash-profile-$timestamp"
 fi
 
 # Copy .bashrc and .bash_profile config files to home folder

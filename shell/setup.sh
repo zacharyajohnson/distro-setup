@@ -4,13 +4,13 @@ if [ -z "$HOME" ]; then
         exit 1
 fi
 
-script_folder="$HOME/.distro-config/script"
-export_folder="$HOME/.distro-config/export"
-alias_folder="$HOME/.distro-config/alias"
+distro_script_folder="$HOME/.distro/script"
+distro_export_folder="$HOME/.distro/export"
+distro_alias_folder="$HOME/.distro/alias"
 
-mkdir -p "$script_folder"
-mkdir -p "$export_folder"
-mkdir -p "$alias_folder"
+mkdir -p "$distro_script_folder"
+mkdir -p "$distro_export_folder"
+mkdir -p "$distro_alias_folder"
 
 dirname="$(dirname "$0")"
 # Copy over inputrc so I stop hearing that damn bell
@@ -29,7 +29,7 @@ if [ ! -d "$common_script" ]; then
         echo "$0: $common_script does not exist. Aborting..." >&2
         exit 1
 fi
-cp "$common_script"/* "$script_folder"
+cp "$common_script"/* "$distro_script_folder"
 
 
 common_export="$dirname"'/common/common-export.sh'
@@ -38,7 +38,7 @@ if [ ! -e "$common_export" ]; then
         exit 1
 fi
 # Copy over exports that are common across all shells
-cp "$common_export" "$export_folder"
+cp "$common_export" "$distro_export_folder"
 
 
 common_alias="$dirname"'/common/common-alias.sh'
@@ -46,7 +46,7 @@ if [ ! -e "$common_alias" ]; then
         echo "$0: $common_alias does not exist. Aborting..." >&2
         exit 1
 fi
-cp "$common_alias" "$alias_folder"
+cp "$common_alias" "$distro_alias_folder"
 
 # We only want to truly install bourne shell
 # configs if it isn't a symlink to another implementation
