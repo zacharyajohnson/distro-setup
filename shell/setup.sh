@@ -4,7 +4,7 @@ if [ -z "$HOME" ]; then
         exit 1
 fi
 
-script_folder="$HOME/.distro-config/bin"
+script_folder="$HOME/.distro-config/script"
 export_folder="$HOME/.distro-config/export"
 alias_folder="$HOME/.distro-config/alias"
 

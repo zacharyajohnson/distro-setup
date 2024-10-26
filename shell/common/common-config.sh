@@ -11,7 +11,7 @@ _is_on_path() {
 if [ -z "$HOME" ]; then
         echo "HOME environment variable is not set"
 else
-        bin_directory="$HOME/.distro-config/bin"
+        script_directory="$HOME/.distro-config/script"
 
         export_directory="$HOME/.distro-config/export"
         common_export_file="$export_directory/common-export.sh"
@@ -20,8 +20,8 @@ else
         common_alias_file="$alias_directory/common-alias.sh"
 
         # If the bin directory exists and is not on the PATH add it
-        if [ -d "$bin_directory" ] && ! _is_on_path "$bin_directory"; then
-                PATH="$bin_directory:$PATH"
+        if [ -d "$script_directory" ] && ! _is_on_path "$script_directory"; then
+                PATH="$script_directory:$PATH"
         fi
 
         if [ -d "$alias_directory" ]; then

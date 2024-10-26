@@ -69,7 +69,7 @@ _setup_software() {
                                 "$folder/$install_native_script_name"
 
                                 "$dirname"'/install-config-files.sh' "$folder"
-                                "$dirname"'/install-bin-scripts.sh' "$folder"
+                                "$dirname"'/install-scripts.sh' "$folder"
                                 "$dirname"'/install-alias-files.sh' "$folder"
                                 "$dirname"'/install-export-files.sh' "$folder"
                                 "$dirname"'/move-cron-files.sh' "$folder"
@@ -78,7 +78,7 @@ _setup_software() {
                                 "$folder/$install_non_native_script_name"
 
                                 "$dirname"'/install-config-files.sh' "$folder"
-                                "$dirname"'/install-bin-scripts.sh' "$folder"
+                                "$dirname"'/install-scripts.sh' "$folder"
                                 "$dirname"'/install-alias-files.sh' "$folder"
                                 "$dirname"'/install-export-files.sh' "$folder"
                                 "$dirname"'/move-cron-files.sh' "$folder"
@@ -87,7 +87,7 @@ _setup_software() {
                                 "$folder/install-with-no-package-manager.sh"
 
                                 "$dirname"'/install-config-files.sh' "$folder"
-                                "$dirname"'/install-bin-scripts.sh' "$folder"
+                                "$dirname"'/install-scripts.sh' "$folder"
                                 "$dirname"'/install-alias-files.sh' "$folder"
                                 "$dirname"'/install-export-files.sh' "$folder"
                                 "$dirname"'/move-cron-files.sh' "$folder"
