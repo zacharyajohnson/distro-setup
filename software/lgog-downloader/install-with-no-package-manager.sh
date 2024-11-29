@@ -2,7 +2,7 @@
 (
         cd '/tmp' || exit
 
-        version='3.12'
+        version='3.15'
         folder_name="lgogdownloader-$version"
         zip_name="lgogdownloader-$version.tar.gz"
 
