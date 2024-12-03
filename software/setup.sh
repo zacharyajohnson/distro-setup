@@ -10,6 +10,9 @@ _get_native_package_manager() {
         elif which pacman > '/dev/null' 2>&1; then
                 printf 'pacman'
                 return 0
+        elif which apk > '/dev/null' 2>&1; then
+                printf 'apk'
+                return 0
         else
                 return 1
         fi
