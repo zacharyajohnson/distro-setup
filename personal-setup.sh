@@ -4,4 +4,4 @@ software=anki,asunder,cron,discord,flatpak,git,intellij,keepassxc,kid3,lgog-down
 ,mgba,nautilus-dropbox,proprietary-nvidia-driver,psensor,qbittorrent\
 ,qdirstat,rustlang,shellcheck,steam,tmux,vim,wine,xfce
 
-./setup.sh --software="$software"
+./setup.sh --software="$software" --prompt-for-install --native-and-non-native-packages

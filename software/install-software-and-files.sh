@@ -5,9 +5,10 @@ dirname="$(dirname "$0")"
 folder="$1"
 package_manager="$2"
 software_flag="$3"
+force_install="$4"
 
-if [ "$#" -lt 3 ]; then
-        echo "$0: usage: folder package_manager software_flag. Args: $*" >&2
+if [ "$#" -lt 2 ]; then
+        echo "$0: usage: folder package_manager [software_flag force_install]. Args: $*" >&2
         exit 1
 fi
 
@@ -18,9 +19,6 @@ software_option_values="$(echo "$software_flag" | awk -F '=' '{print $2}' | sed 
 if [ -n "$software_option" ]; then
         if [ "$software_option" != '--software' ]; then
                 echo "$0: Invalid option. Only valid option is --software" >&2
-                exit 1
-        elif [ -z "$software_option_values" ]; then
-                echo "$0: No arguments for --software" >&2
                 exit 1
         fi
 fi
@@ -36,7 +34,7 @@ do
         fi
 done
 
-if [ -z "$software_option_values" ]; then
+if [ -z "$software_option_values" ] || [ "$software_option_values" = 'all' ]; then
         should_install=true
 fi
 
@@ -49,10 +47,12 @@ if [ "$should_install" = true ]; then
                 exit 1
         fi
 
-        printf '\nWould you like to install %s with %s?\n' "$folder_name" "$package_manager"
-        read -r answer
+        if [ "$force_install" != '--force-install' ]; then
+                printf '\nWould you like to install %s with %s?\n' "$folder_name" "$package_manager"
+                read -r answer
+        fi
 
-        if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
+        if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ] || [ "$force_install" = '--force-install' ]; then
                 printf 'Installing %s with %s\n' "$folder" "$package_manager"
                 "$folder/$install_package_manager_script_name"
 
