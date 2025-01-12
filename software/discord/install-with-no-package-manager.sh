@@ -7,7 +7,7 @@
         binary_file_name='Discord'
         symlink_path='/usr/bin/discord'
 
-        version='0.0.40'
+        version='0.0.79'
         tar_name="discord-$version.tar.gz"
         unzipped_folder_name='Discord'
 
