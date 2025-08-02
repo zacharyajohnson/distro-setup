@@ -1,1 +1,1 @@
-0 */8 * * * . "$HOME/.bashrc" && "github-download-user-repos.sh" "$CLOUD_FOLDER/me/repo/github"
+0 */8 * * * "github-download-user-repos.sh" "$CLOUD_FOLDER/me/repo/github"

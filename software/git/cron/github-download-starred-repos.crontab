@@ -1,1 +1,1 @@
-0 */2 * * * . "$HOME/.bashrc" && "github-download-starred-repos.sh" "$CLOUD_FOLDER/archive/repo/3rd-party/github"
+0 */2 * * * "github-download-starred-repos.sh" "$CLOUD_FOLDER/archive/repo/3rd-party/github"
