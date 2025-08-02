@@ -57,7 +57,7 @@ while [ -n "$github_starred_repos_endpoint" ]; do
                        cd "$repo_clone_path" || exit
                        if git rev-parse --show-toplevel > /dev/null 2>&1; then
                                echo "$repo_url exists in $repo_clone_path. Updating..."
-                               git pull
+                               git fetch --all --prune
                                cd "$base_dir" || exit
                                #sleep 10s
                                continue
@@ -72,7 +72,7 @@ while [ -n "$github_starred_repos_endpoint" ]; do
                        echo "Cloning $repo_url from user $owner_username into $repo_path"
                        #sleep 10s
 
-                       git clone "$repo_url" "$repo_clone_path" > '/dev/null'
+                       git clone --no-checkout "$repo_url" "$repo_clone_path" > '/dev/null'
                fi
         done
 
