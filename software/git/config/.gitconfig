@@ -1,3 +1,72 @@
+[column]
+        # Puts output of commands in column format
+        ui = auto
+[branch]
+        # Sort branches by most recent commit date
+        sort = -committerdate
+[tag]
+        # Fixes tag versions not listing in order
+        # by version number
+        sort = version:refname
+[init]
+        defaultBranch = master
+[diff]
+        # Git uses an old algorithm to figure out diffs
+        # called "myers diff"
+        #
+        # You might notice with myers that if you move things
+        # around in a file and then add / delete stuff, it
+        # can be hard to tell what actually changed
+        #
+        # git comes with 4 algorithms. They are myers, minimal, patience
+        # and histogram
+        #
+        # histogram is the newest and is an improvment on patience
+        # so use that instead.
+        #
+        # Should lead to cleaner diffs in the case of many different
+        # types of changes like I listed above
+        algorithm = histogram
+
+        # Changes the color in diffs for moved code
+        # This is so the diff color for moved code (existing)
+        # and deleted / added code are different
+        colorMoved = plain
+
+        # Replaces the a/ and b/ in the diff header
+        # with where the diff is coming from
+        #
+        # i/ (index), w/ (working directory), c/ (commit)
+        mnemonicPrefix = true
+
+        # detects if a file has been renamed
+        renames = true
+[push]
+        # By default, pushes the current branch name
+        # to the same name on the remote
+        default = simple
+
+        # Will setup upstream for branches automatically
+        # if its not setup already
+        #
+        # Does this automatically:
+        #       git push --set-upstream origin branch-name
+        autoSetupRemote = true
+[fetch]
+        # All this make sure that if something is deleted
+        # from the origin, it will be deleted from the local
+        # copy when doing a fetch
+        prune = true
+        pruneTags = true
+        all = true
+
+[help]
+        # Will try and suggest commands to run if you
+        # mistype
+        autocorrect = prompt
+[commit]
+        # Will add the file diffs in the commit screen
+        verbose = true
 [core]
 	editor = vim
 [user]
