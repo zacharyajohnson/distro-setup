@@ -3,8 +3,8 @@
 (
         cd '/tmp' || exit
 
-        version='24.04.1'
-        file_name="anki-$version-linux-qt6"
+        version='25.09'
+        file_name="anki-launcher-$version-linux"
         zipped_file_name="$file_name.tar.zst"
 
         curl -OL "https://github.com/ankitects/anki/releases/download/$version/$zipped_file_name"
