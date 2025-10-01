@@ -49,7 +49,7 @@ while [ -n "$github_user_repos_endpoint" ]; do
                        cd "$repo_clone_path" || exit
                        if git rev-parse --show-toplevel > /dev/null 2>&1; then
                                echo "$repo_url exists in $repo_clone_path. Updating..."
-                               git fetch --all --prune
+                               git fetch --all --prune --prune-tags --force
                                cd "$base_dir" || exit
                                #sleep 10s
                                continue
