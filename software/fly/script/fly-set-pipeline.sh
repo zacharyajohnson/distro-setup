@@ -27,7 +27,7 @@ fi
 
 if [ -z "$pipeline_config_path" ]; then
         # current directory
-        pipline_config_path='./pipeline.yml'
+        pipeline_config_path='./pipeline.yml'
 fi
 
 fly-login.sh "$concourse_url" "$team"
