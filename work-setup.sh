@@ -9,4 +9,4 @@ chsh -s /bin/bash
 
 software=azure-cli,cf,fly,git,k9s,kubectl,kubelogin,python-3,shellcheck,safe,sshpass,tmux,vim,visual-vm
 
-./setup.sh --software="$software" --prompt-for-install --native-and-non-native-packages
+ "$(dirname "$0")"'/setup.sh' --software="$software" --prompt-for-install --native-and-non-native-packages

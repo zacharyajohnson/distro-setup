@@ -4,4 +4,4 @@ software=anki,asunder,bluez,bluez-utils,cron,discord,flatpak,git,intellij,keepas
 ,mgba,nautilus-dropbox,proprietary-nvidia-driver,psensor,qbittorrent\
 ,qdirstat,rustlang,shellcheck,steam,tmux,vim,wine,xfce
 
-./setup.sh --software="$software" --prompt-for-install --native-and-non-native-packages
+"$(dirname "$0")"'/setup.sh' --software="$software" --prompt-for-install --native-and-non-native-packages
