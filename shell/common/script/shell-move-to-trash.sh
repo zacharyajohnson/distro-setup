@@ -18,7 +18,19 @@ fi
 
 trash_folder="$HOME/trash/$timestamp"
 
-things_to_move="$*"
-
+# "$@" expands each argument as a separate quoted word, preserving spaces in filenames
+# It is important that $@ is surrounded by quotes or it will not handle items with
+# spaces correctly
+#
+# Ex:
+#       'Folder with Spaces'
+#       
+#       Will be handled correctly with "$@" and will
+#       be expanded to one folder
+#
+#       Will expand to three seperate folders with $@
+#               Folder
+#               with
+#               Spaces
 mkdir -p "$trash_folder" \
-        && mv -i $things_to_move "$trash_folder"
+        && mv -i "$@" "$trash_folder"
