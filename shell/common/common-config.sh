@@ -19,6 +19,8 @@ else
         distro_alias_directory="$HOME/.distro/alias"
         common_alias_file="$distro_alias_directory/common-alias.sh"
 
+        PATH="$HOME/.local/bin:$PATH"
+
         # If the bin directory exists and is not on the PATH add it
         if [ -d "$distro_script_directory" ] && ! _is_on_path "$distro_script_directory"; then
                 PATH="$distro_script_directory:$PATH"
