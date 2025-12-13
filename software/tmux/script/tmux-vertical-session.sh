@@ -33,9 +33,10 @@ elif [ "$num_commands" -eq 1 ]; then
 
         tmux send-keys -t "$session_name:$window_name.0" "$1" C-m
 else
-        for i in $(seq '1' "$num_commands"); do 
+        i=1
+        while [ "$i" -le "$num_commands" ]; do
                 command_variable="\$$i"
-                pane_number=$((i - 1)) 
+                pane_number=$((i - 1))
                 command_value=$(eval echo "$command_variable")
 
                 tmux select-pane -t "$pane_number" -T "$command_value"
@@ -47,6 +48,7 @@ else
                         tmux split-window -h
                 fi
 
+                i=$((i + 1))
         done
 fi
 
