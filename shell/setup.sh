@@ -1,21 +1,25 @@
 #!/bin/sh
-if [ -z "$HOME" ]; then
-        echo "$0 HOME environment variable is not set" >&2
+
+dirname="$(dirname "$0")"
+
+distro_config_file="$dirname/../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
 
-distro_script_folder="$HOME/.distro/script"
-distro_export_folder="$HOME/.distro/export"
-distro_alias_folder="$HOME/.distro/alias"
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
 
-mkdir -p "$distro_script_folder"
-mkdir -p "$distro_export_folder"
-mkdir -p "$distro_alias_folder"
+mkdir -p "$DISTRO_BASE_DIRECTORY"
+mkdir -p "$DISTRO_SCRIPT_DIRECTORY"
+mkdir -p "$DISTRO_EXPORT_DIRECTORY"
+mkdir -p "$DISTRO_ALIAS_DIRECTORY"
 
-dirname="$(dirname "$0")"
+# Copy config.sh to distro base directory for runtime use
+cp "$distro_config_file" "$DISTRO_BASE_DIRECTORY/distro-config.sh"
+
 # Copy over inputrc so I stop hearing that damn bell
-
-
 inputrc="$dirname"'/common/.inputrc'
 if [ ! -e "$inputrc" ]; then
         echo "$0: $inputrc does not exist. Aborting..." >&2
@@ -24,29 +28,29 @@ fi
 cp "$inputrc" "$HOME"
 
 
-common_script="$dirname"'/common/script'
-if [ ! -d "$common_script" ]; then
-        echo "$0: $common_script does not exist. Aborting..." >&2
+common_script_folder="$dirname"'/common/script'
+if [ ! -d "$common_script_folder" ]; then
+        echo "$0: $common_script_folder does not exist. Aborting..." >&2
         exit 1
 fi
-cp "$common_script"/* "$distro_script_folder"
+cp "$common_script_folder"/* "$DISTRO_SCRIPT_DIRECTORY"
 
 
-common_export="$dirname"'/common/common-export.sh'
-if [ ! -e "$common_export" ]; then
-        echo "$0: $common_export does not exist. Aborting..." >&2
+common_export_file="$dirname"'/common/common-export.sh'
+if [ ! -e "$common_export_file" ]; then
+        echo "$0: $common_export_file does not exist. Aborting..." >&2
         exit 1
 fi
 # Copy over exports that are common across all shells
-cp "$common_export" "$distro_export_folder"
+cp "$common_export_file" "$DISTRO_EXPORT_DIRECTORY"
 
 
-common_alias="$dirname"'/common/common-alias.sh'
-if [ ! -e "$common_alias" ]; then
-        echo "$0: $common_alias does not exist. Aborting..." >&2
+common_alias_file="$dirname"'/common/common-alias.sh'
+if [ ! -e "$common_alias_file" ]; then
+        echo "$0: $common_alias_file does not exist. Aborting..." >&2
         exit 1
 fi
-cp "$common_alias" "$distro_alias_folder"
+cp "$common_alias_file" "$DISTRO_ALIAS_DIRECTORY"
 
 # We only want to truly install bourne shell
 # configs if it isn't a symlink to another implementation

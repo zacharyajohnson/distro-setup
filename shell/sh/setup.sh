@@ -1,12 +1,18 @@
 #!/bin/sh
 
-if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set" >&2
+dirname="$(dirname "$0")"
+
+distro_config_file="$dirname/../../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
 
-distro_backup_folder="$HOME/.distro/backup/sh"
-mkdir -p "$distro_backup_folder"
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
+
+shell_config_backup_directory="$DISTRO_BACKUP_DIRECTORY/sh"
+mkdir -p "$shell_config_backup_directory"
 
 timestamp=$(date "+%Y-%m-%d-%H%M%S")
 
@@ -17,14 +23,12 @@ fi
 
 
 if [ -f "$HOME/.profile" ]; then
-       echo ".profile exists. Backing up at $distro_backup_folder"
-       cp "$HOME/.profile" "$distro_backup_folder/.backup-profile-$timestamp"
+       echo ".profile exists. Backing up at $shell_config_backup_directory"
+       cp "$HOME/.profile" "$shell_config_backup_directory/.backup-profile-$timestamp"
 fi
 
-# Copy .profile config file to home folder
+# Copy .profile config file to home directory
 echo "Overriding .profile at $HOME"
-
-dirname="$(dirname "$0")"
 
 common_config="$dirname"'/../common/common-config.sh'
 if [ ! -e "$common_config" ]; then
@@ -34,5 +38,3 @@ fi
 
 # shellcheck source=/dev/null
 cat "$common_config" > "$HOME/.profile" && . "$HOME/.profile"
-
-exit 0

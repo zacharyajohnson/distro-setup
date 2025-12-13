@@ -1,22 +1,27 @@
 #!/bin/sh
 
-folder=$1
-folder_name="$(basename "$folder")"
-alias_folder='alias'
-distro_alias_folder="$HOME/.distro/$alias_folder/$folder_name"
+dirname="$(dirname "$0")"
 
-if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set" >&2
+distro_config_file="$dirname/../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
 
-if [ -z "$folder" ]; then
-        echo "$0: Provide folder to look for alias files." >&2
+directory=$1
+directory_name="$(basename "$directory")"
+alias_directory='alias'
+directory_to_install_alias_files_to="$DISTRO_ALIAS_DIRECTORY/$directory_name"
+
+if [ -z "$directory" ]; then
+        echo "$0: Provide directory to look for alias files." >&2
         exit 1
-elif [ -d "$folder/$alias_folder" ]; then
-        echo "$0: Installing alias files for $folder to $distro_alias_folder"
-        mkdir -p "$distro_alias_folder"
-        cp -r "$folder/$alias_folder/." "$distro_alias_folder"
+elif [ -d "$directory/$alias_directory" ]; then
+        echo "$0: Installing alias files for $directory to $directory_to_install_alias_files_to"
+        mkdir -p "$directory_to_install_alias_files_to"
+        cp -r "$directory/$alias_directory/." "$directory_to_install_alias_files_to"
 else
-        echo "$0: Alias folder does not exist for $folder. Skipping..."
+        echo "$0: Alias directory does not exist for $directory. Skipping..."
 fi

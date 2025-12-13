@@ -1,23 +1,27 @@
 #!/bin/sh
 
-folder=$1
-folder_name="$(basename "$folder")"
-cron_folder='cron'
-distro_cron_folder="$HOME/.distro/$cron_folder/$folder_name"
+dirname="$(dirname "$0")"
 
-if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set" >&2
+distro_config_file="$dirname/../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
 
-if [ -z "$folder" ]; then
-        echo "$0: Provide folder to look for cron files" >&2
+directory=$1
+directory_name="$(basename "$directory")"
+cron_directory='cron'
+directory_to_move_cron_files_to="$DISTRO_CRON_DIRECTORY/$directory_name"
+
+if [ -z "$directory" ]; then
+        echo "$0: Provide directory to look for cron files" >&2
         exit 1
-elif [ -d "$folder/$cron_folder" ]; then
-        echo "$0: Moving cron files for $folder to $distro_cron_folder"
-        mkdir -p "$distro_cron_folder"
-        cp -r "$folder/$cron_folder/." "$distro_cron_folder"
+elif [ -d "$directory/$cron_directory" ]; then
+        echo "$0: Moving cron files for $directory to $directory_to_move_cron_files_to"
+        mkdir -p "$directory_to_move_cron_files_to"
+        cp -r "$directory/$cron_directory/." "$directory_to_move_cron_files_to"
 else
-        echo "$0: Cron folder does not exist for $folder. Skipping..."
+        echo "$0: Cron directory does not exist for $directory. Skipping..."
 fi
-

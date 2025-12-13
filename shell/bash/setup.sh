@@ -1,12 +1,18 @@
 #!/bin/sh
 
-if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set" >&2
+dirname="$(dirname "$0")"
+
+distro_config_file="$dirname/../../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
 
-distro_backup_folder="$HOME/.distro/backup/bash"
-mkdir -p "$distro_backup_folder"
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
+
+shell_config_backup_directory="$DISTRO_BACKUP_DIRECTORY/bash"
+mkdir -p "$shell_config_backup_directory"
 
 timestamp=$(date "+%Y-%m-%d-%H%M%S")
 if [ -z "$timestamp" ]; then
@@ -15,25 +21,24 @@ if [ -z "$timestamp" ]; then
 fi
 
 if [ -f "$HOME/.bashrc" ]; then
-       echo ".bashrc exists. Backing up at $distro_backup_folder"
-       cp "$HOME/.bashrc" "$distro_backup_folder/.backup-bashrc-$timestamp"
+       echo ".bashrc exists. Backing up at $shell_config_backup_directory"
+       cp "$HOME/.bashrc" "$shell_config_backup_directory/.backup-bashrc-$timestamp"
 fi
 
 if [ -f "$HOME/.bash_profile" ]; then
-       echo ".bash_profile exists. Backing up at $distro_backup_folder"
-       cp "$HOME/.bash_profile" "$distro_backup_folder/.backup-bash-profile-$timestamp"
+       echo ".bash_profile exists. Backing up at $shell_config_backup_directory"
+       cp "$HOME/.bash_profile" "$shell_config_backup_directory/.backup-bash-profile-$timestamp"
 fi
 
-# Copy .bashrc and .bash_profile config files to home folder
+# Copy .bashrc and .bash_profile config files to home directory
 echo "Overriding .bashrc and .bash_profile at $HOME"
-dirname="$(dirname "$0")"
 
-common_config="$dirname"'/../common/common-config.sh'
-if [ ! -e "$common_config" ]; then
-        echo "$0: $common_config does not exist. Aborting..." >&2
+shell_common_config="$dirname"'/../common/common-config.sh'
+if [ ! -e "$shell_common_config" ]; then
+        echo "$0: $shell_common_config does not exist. Aborting..." >&2
         exit 1
 fi
-cat "$common_config" > "$HOME/.bashrc"
+cat "$shell_common_config" > "$HOME/.bashrc"
 
 bash_profile="$dirname"'/.bash_profile'
 if [ ! -e "$bash_profile" ]; then

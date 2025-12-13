@@ -1,22 +1,25 @@
 #!/bin/sh
 
-folder=$1
-script_folder='script'
-distro_script_folder="$HOME/.distro/$script_folder"
+dirname="$(dirname "$0")"
 
-if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set" >&2
+distro_config_file="$dirname/../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
 
-if [ -z "$folder" ]; then
-        echo "$0: Provide folder to look for bin scripts." >&2
+directory=$1
+script_directory='script'
+
+if [ -z "$directory" ]; then
+        echo "$0: Provide directory to look for scripts." >&2
         exit 1
-elif [ -d "$folder/$script_folder" ]; then
-        echo "$0: Installing scripts for $folder to $script_folder"
-        mkdir -p "$distro_script_folder"
-        cp -r "$folder/$script_folder/." "$distro_script_folder"
+elif [ -d "$directory/$script_directory" ]; then
+        echo "$0: Installing scripts for $directory to $DISTRO_SCRIPT_DIRECTORY"
+        mkdir -p "$DISTRO_SCRIPT_DIRECTORY"
+        cp -r "$directory/$script_directory/." "$DISTRO_SCRIPT_DIRECTORY"
 else
-        echo "$0: Script folder does not exist for $folder. Skipping..."
+        echo "$0: Script directory does not exist for $directory. Skipping..."
 fi
-

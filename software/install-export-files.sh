@@ -1,22 +1,27 @@
 #!/bin/sh
 
-folder=$1
-folder_name="$(basename "$folder")"
-export_folder='export'
-distro_export_folder="$HOME/.distro/$export_folder/$folder_name"
+dirname="$(dirname "$0")"
 
-if [ -z "$HOME" ]; then
-        echo "$0: HOME environment variable is not set" >&2
+distro_config_file="$dirname/../distro-config.sh"
+if [ ! -e "$distro_config_file" ]; then
+        echo "$0: $distro_config_file does not exist. Aborting..." >&2
         exit 1
 fi
+# shellcheck source=../distro-config.sh
+. "$distro_config_file"
 
-if [ -z "$folder" ]; then
-        echo "$0: Provide folder to look for export files." >&2
+directory=$1
+directory_name="$(basename "$directory")"
+export_directory='export'
+directory_to_install_export_files_to="$DISTRO_EXPORT_DIRECTORY/$directory_name"
+
+if [ -z "$directory" ]; then
+        echo "$0: Provide directory to look for export files." >&2
         exit 1
-elif [ -d "$folder/$export_folder" ]; then
-        echo "$0: Installing export files for $folder to $distro_export_folder"
-        mkdir -p "$distro_export_folder"
-        cp -r "$folder/$export_folder/." "$distro_export_folder"
+elif [ -d "$directory/$export_directory" ]; then
+        echo "$0: Installing export files for $directory to $directory_to_install_export_files_to"
+        mkdir -p "$directory_to_install_export_files_to"
+        cp -r "$directory/$export_directory/." "$directory_to_install_export_files_to"
 else
-        echo "$0: Export folder does not exist for $folder. Skipping..."
+        echo "$0: Export directory does not exist for $directory. Skipping..."
 fi
