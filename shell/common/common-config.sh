@@ -52,13 +52,23 @@ if [ -d "$DISTRO_ALIAS_DIRECTORY" ]; then
 
         # Keep this after the alias so the common
         # ones can get overriden by program specific values
-        for alias_file in $(echo "$DISTRO_ALIAS_DIRECTORY"/**/*alias.sh)
-        do
-                if [ -e "$alias_file" ]; then
+
+        # Note: We use a here-document instead of a pipe to avoid subshell issues.
+        # Piping to while (find | while read) creates a subshell, which means any
+        # sourced aliases would be lost when the subshell exits. Using a here-document
+        # ensures the while loop runs in the current shell.
+
+        # IFS= sets IFS to empty string, disabling field splitting and preserving
+        # leading/trailing whitespace in paths (defensive programming)
+        while IFS= read -r alias_file; do
+                # -n checks for non-empty lines (find output may have trailing newlines)
+                if [ -n "$alias_file" ] && [ -e "$alias_file" ]; then
                         # shellcheck source=/dev/null
                         . "$alias_file"
                 fi
-        done
+        done << EOF
+$(find "$DISTRO_ALIAS_DIRECTORY" -name "*alias.sh")
+EOF
 fi
 
 if [ -d "$DISTRO_EXPORT_DIRECTORY" ]; then
@@ -69,11 +79,21 @@ if [ -d "$DISTRO_EXPORT_DIRECTORY" ]; then
 
         # Keep this after the exports so the common
         # ones can get overriden by program specific values
-        for export_file in $(echo "$DISTRO_EXPORT_DIRECTORY"/**/*export.sh)
-        do
-                if [ -e "$export_file" ]; then
+
+        # Note: We use a here-document instead of a pipe to avoid subshell issues.
+        # Piping to while (find | while read) creates a subshell, which means any
+        # sourced aliases would be lost when the subshell exits. Using a here-document
+        # ensures the while loop runs in the current shell.
+
+        # IFS= sets IFS to empty string, disabling field splitting and preserving
+        # leading/trailing whitespace in paths (defensive programming)
+        while IFS= read -r export_file; do
+                # -n checks for non-empty lines (find output may have trailing newlines)
+                if [ -n "$export_file" ] && [ -e "$export_file" ]; then
                         # shellcheck source=/dev/null
                         . "$export_file"
                 fi
-        done
+        done << EOF
+$(find "$DISTRO_EXPORT_DIRECTORY" -name "*export.sh")
+EOF
 fi
