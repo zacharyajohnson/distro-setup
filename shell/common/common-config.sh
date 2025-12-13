@@ -8,16 +8,26 @@ _is_on_path() {
         return $?
 }
 
-# Source distro configuration for path variables
-distro_config_file="$HOME/.distro/distro-config.sh"
+# Source bootstrap file to find distro base directory
+distro_bootstrap_file="$HOME/.distro-bootstrap"
+if [ -e "$distro_bootstrap_file" ]; then
+        # shellcheck source=/dev/null
+        . "$distro_bootstrap_file"
+else
+        echo "Warning: $distro_bootstrap_file not found. Using default location."
+        DISTRO_BASE_DIRECTORY="$HOME/.distro"
+fi
+
+# Source full distro configuration
+distro_config_file="$DISTRO_BASE_DIRECTORY/distro-config.sh"
 if [ -e "$distro_config_file" ]; then
         # shellcheck source=/dev/null
         . "$distro_config_file"
 else
         echo "Warning: $distro_config_file not found. Using defaults."
-        DISTRO_SCRIPT_DIRECTORY="$HOME/.distro/script"
-        DISTRO_EXPORT_DIRECTORY="$HOME/.distro/export"
-        DISTRO_ALIAS_DIRECTORY="$HOME/.distro/alias"
+        DISTRO_SCRIPT_DIRECTORY="$DISTRO_BASE_DIRECTORY/script"
+        DISTRO_EXPORT_DIRECTORY="$DISTRO_BASE_DIRECTORY/export"
+        DISTRO_ALIAS_DIRECTORY="$DISTRO_BASE_DIRECTORY/alias"
 fi
 
 common_export_file="$DISTRO_EXPORT_DIRECTORY/common-export.sh"
