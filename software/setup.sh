@@ -22,7 +22,7 @@ fi
 # This is used to skip trying to install already installed packages..
 # We need to get rid of the ending slash so our package query
 # command works correctly.
-for folder in $(echo "$dirname/*/")
+for folder in "$dirname"/*/
 do
         folder_name="$(basename "$folder")"
         for package_manager in $package_managers
