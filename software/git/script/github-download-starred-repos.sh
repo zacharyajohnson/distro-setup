@@ -76,6 +76,6 @@ while [ -n "$github_starred_repos_endpoint" ]; do
                fi
         done
 
-        github_starred_repos_endpoint="$(curl -sI -H "Authorization: token $GITHUB_READ_TOKEN" "$github_starred_repos_endpoint" | grep -i '^Link:' | sed -E -n 's/.*<([^>]+)>;[[:space:]]*rel="next".*/\1/p')"
+        github_starred_repos_endpoint="$(curl -sI -H "Authorization: token $GITHUB_READ_TOKEN" "$github_starred_repos_endpoint" | grep -i '^Link:' | sed -n 's/.*<\([^>]\+\)>;[[:space:]]*rel="next".*/\1/p')"
 done
 
