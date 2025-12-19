@@ -68,10 +68,9 @@ cp "$common_alias_file" "$DISTRO_ALIAS_DIRECTORY"
 # bourne shell implementation
 
 if [ "$SHELL" = '/bin/sh' ] && [ ! -L "$SHELL" ]; then
-        echo 'Detected borne shell. Installing configs...'
+        echo 'Detected Bourne shell. Installing configs...'
         "$dirname"'/sh/setup.sh'
-elif [ "$SHELL" = '/bin/bash' ];
-then
+elif [ "$SHELL" = '/bin/bash' ]; then
         echo 'Detected bash shell. Installing configs...'
         "$dirname"'/bash/setup.sh'
 else
