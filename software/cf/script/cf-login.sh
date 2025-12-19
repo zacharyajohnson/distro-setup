@@ -3,7 +3,7 @@
 pcf_api_url="$1"
 
 if [ "$#" -lt 1 ]; then
-        echo "$0 usage: pcf_api_url" >&2
+        printf '%s usage: pcf_api_url\n' "$0" >&2
         exit 1
 fi
 
@@ -15,7 +15,7 @@ fi
 # We want to be as explicit as possible when login into pcf
 # to do something
 if [ -z "$pcf_api_url" ]; then
-        echo "$0: pcf_api_url is blank / empty. Exiting..." >&2
+        printf '%s: pcf_api_url is blank / empty. Exiting...\n' "$0" >&2
         exit 1
 fi
 

@@ -4,7 +4,7 @@ dirname="$(dirname "$0")"
 
 distro_config_file="$dirname/../distro-config.sh"
 if [ ! -e "$distro_config_file" ]; then
-        echo "$0: $distro_config_file does not exist. Aborting..." >&2
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$distro_config_file" >&2
         exit 1
 fi
 
@@ -32,23 +32,23 @@ EOF
 # Copy over inputrc so I stop hearing that damn bell
 inputrc="$dirname"'/common/.inputrc'
 if [ ! -e "$inputrc" ]; then
-        echo "$0: $inputrc does not exist. Aborting..." >&2
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$inputrc" >&2
         exit 1
 fi
 cp "$inputrc" "$HOME"
 
 
-common_script_folder="$dirname"'/common/script'
-if [ ! -d "$common_script_folder" ]; then
-        echo "$0: $common_script_folder does not exist. Aborting..." >&2
+common_script_directory="$dirname"'/common/script'
+if [ ! -d "$common_script_directory" ]; then
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$common_script_directory" >&2
         exit 1
 fi
-cp "$common_script_folder"/* "$DISTRO_SCRIPT_DIRECTORY"
+cp "$common_script_directory"/* "$DISTRO_SCRIPT_DIRECTORY"
 
 
 common_export_file="$dirname"'/common/common-export.sh'
 if [ ! -e "$common_export_file" ]; then
-        echo "$0: $common_export_file does not exist. Aborting..." >&2
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$common_export_file" >&2
         exit 1
 fi
 # Copy over exports that are common across all shells
@@ -57,7 +57,7 @@ cp "$common_export_file" "$DISTRO_EXPORT_DIRECTORY"
 
 common_alias_file="$dirname"'/common/common-alias.sh'
 if [ ! -e "$common_alias_file" ]; then
-        echo "$0: $common_alias_file does not exist. Aborting..." >&2
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$common_alias_file" >&2
         exit 1
 fi
 cp "$common_alias_file" "$DISTRO_ALIAS_DIRECTORY"
@@ -74,6 +74,6 @@ elif [ "$SHELL" = '/bin/bash' ]; then
         echo 'Detected bash shell. Installing configs...'
         "$dirname"'/bash/setup.sh'
 else
-        echo "$0: Could not detect shell installed. Aborting..." >&2
+        printf '%s: Could not detect shell installed. Aborting...\n' "$0" >&2
         exit 1
 fi

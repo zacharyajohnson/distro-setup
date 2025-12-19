@@ -4,7 +4,7 @@ dirname="$(dirname "$0")"
 
 distro_config_file="$dirname/../distro-config.sh"
 if [ ! -e "$distro_config_file" ]; then
-        echo "$0: $distro_config_file does not exist. Aborting..." >&2
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$distro_config_file" >&2
         exit 1
 fi
 # shellcheck source=../distro-config.sh
@@ -14,7 +14,7 @@ directory=$1
 script_directory='script'
 
 if [ -z "$directory" ]; then
-        echo "$0: Provide directory to look for scripts." >&2
+        printf '%s: Provide directory to look for scripts.\n' "$0" >&2
         exit 1
 elif [ -d "$directory/$script_directory" ]; then
         echo "$0: Installing scripts for $directory to $DISTRO_SCRIPT_DIRECTORY"

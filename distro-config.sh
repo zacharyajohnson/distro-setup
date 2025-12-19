@@ -6,7 +6,7 @@
 # for use by the shell config.
 
 if [ -z "$HOME" ]; then
-	echo "$0: HOME environment variable is not set" >&2
+	printf '%s: HOME environment variable is not set\n' "$0" >&2
 	exit 1
 fi
 

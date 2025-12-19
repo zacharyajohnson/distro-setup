@@ -11,9 +11,9 @@ non_native_package_managers='flatpak brew'
 # using them
 for non_native_package_manager in $non_native_package_managers
 do
-        folder="$dirname/$non_native_package_manager"
-        if ! "$dirname/install-software-and-files.sh" "$folder" "$native_package_manager"; then
-                echo "$0: Setup failed for $non_native_package_manager" >&2
+        directory="$dirname/$non_native_package_manager"
+        if ! "$dirname/install-software-and-files.sh" "$directory" "$native_package_manager"; then
+                printf '%s: Setup failed for %s\n' "$0" "$non_native_package_manager" >&2
                 exit 1
         fi
 done

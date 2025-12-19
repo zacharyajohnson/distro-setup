@@ -4,7 +4,7 @@ root_dir="$1"
 note_file='note.txt'
 
 if [ -z "$root_dir" ]; then
-        echo "$0 usage: root_dir" >&2
+        printf '%s usage: root_dir\n' "$0" >&2
         exit 1
 fi
 
@@ -16,6 +16,6 @@ do
         if [ -e "$note_file_path" ]; then
                 cat "$note_file_path"
         else
-                echo "Could not find $note_file_path" >&2
+                printf 'Could not find %s\n' "$note_file_path" >&2
         fi
 done

@@ -4,7 +4,7 @@ dirname="$(dirname "$0")"
 
 distro_config_file="$dirname/../distro-config.sh"
 if [ ! -e "$distro_config_file" ]; then
-        echo "$0: $distro_config_file does not exist. Aborting..." >&2
+        printf '%s: %s does not exist. Aborting...\n' "$0" "$distro_config_file" >&2
         exit 1
 fi
 # shellcheck source=../distro-config.sh
@@ -16,7 +16,7 @@ alias_directory='alias'
 directory_to_install_alias_files_to="$DISTRO_ALIAS_DIRECTORY/$directory_name"
 
 if [ -z "$directory" ]; then
-        echo "$0: Provide directory to look for alias files." >&2
+        printf '%s: Provide directory to look for alias files.\n' "$0" >&2
         exit 1
 elif [ -d "$directory/$alias_directory" ]; then
         echo "$0: Installing alias files for $directory to $directory_to_install_alias_files_to"
