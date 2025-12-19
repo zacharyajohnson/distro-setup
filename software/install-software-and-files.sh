@@ -30,7 +30,7 @@ for software_option_value in $software_option_values
 do
         if [ "$software_option_value" = "$folder_name" ]; then
                 should_install=true
-                break;
+                break
         fi
 done
 
@@ -47,6 +47,7 @@ if [ "$should_install" = true ]; then
                 exit 1
         fi
 
+        answer=""
         if [ "$force_install" != '--force-install' ]; then
                 printf '\nWould you like to install %s with %s?\n' "$folder_name" "$package_manager"
                 read -r answer
@@ -54,13 +55,15 @@ if [ "$should_install" = true ]; then
 
         if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ] || [ "$force_install" = '--force-install' ]; then
                 printf 'Installing %s with %s\n' "$folder" "$package_manager"
-                "$folder/$install_package_manager_script_name"
-
-                "$dirname"'/install-config-files.sh' "$folder"
-                "$dirname"'/install-scripts.sh' "$folder"
-                "$dirname"'/install-alias-files.sh' "$folder"
-                "$dirname"'/install-export-files.sh' "$folder"
-                "$dirname"'/move-cron-files.sh' "$folder"
+                if "$folder/$install_package_manager_script_name"; then
+                        "$dirname"'/install-config-files.sh' "$folder"
+                        "$dirname"'/install-scripts.sh' "$folder"
+                        "$dirname"'/install-alias-files.sh' "$folder"
+                        "$dirname"'/install-export-files.sh' "$folder"
+                        "$dirname"'/move-cron-files.sh' "$folder"
+                else
+                        echo "$0: Package installation failed for $folder_name" >&2
+                fi
         else
                 printf 'Skipping %s installation.\n\n' "$folder"
                 exit 0
