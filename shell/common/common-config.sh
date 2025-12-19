@@ -1,8 +1,7 @@
 #!/bin/sh
 
 _is_on_path() {
-        echo "$PATH" | grep -q "$1" > /dev/null 2>&1
-        return $?
+        echo "$PATH" | grep -q "$1" 2>&1
 }
 
 # Source bootstrap file to find distro base directory
