@@ -20,8 +20,8 @@ if [ -z "$GITHUB_USERNAME" ]; then
         exit 1
 fi
 
-if [ -z "$GITHUB_READ_TOKEN" ]; then
-        printf '%s: GITHUB_READ_TOKEN not set. Please provide read only api token for GitHub\n' "$0" >&2
+if [ -z "$GITHUB_READ_ONLY_TOKEN" ]; then
+        printf '%s: GITHUB_READ_ONLY_TOKEN not set. Please provide read only api token for GitHub\n' "$0" >&2
         exit 1
 fi
 
@@ -33,7 +33,7 @@ github_user_repos_endpoint="https://api.github.com/users/$GITHUB_USERNAME/repos?
 
 while [ -n "$github_user_repos_endpoint" ]; do
         # The full response
-        response="$(curl -s -H "Authorization: token $GITHUB_READ_TOKEN" "$github_user_repos_endpoint")"
+        response="$(curl -s -H "Authorization: token $GITHUB_READ_ONLY_TOKEN" "$github_user_repos_endpoint")"
 
         # The data we care about
         response_data="$(echo "$response" | jq 'map({owner_username: .owner.login, repo_path: .full_name, clone_url: .clone_url})')"
@@ -68,6 +68,6 @@ while [ -n "$github_user_repos_endpoint" ]; do
                fi
         done
 
-        github_user_repos_endpoint="$(curl -sI -H "Authorization: token $GITHUB_READ_TOKEN" "$github_user_repos_endpoint" | grep -i '^Link:' | sed -n 's/.*<\([^>]\+\)>;[[:space:]]*rel="next".*/\1/p')"
+        github_user_repos_endpoint="$(curl -sI -H "Authorization: token $GITHUB_READ_ONLY_TOKEN" "$github_user_repos_endpoint" | grep -i '^Link:' | sed -n 's/.*<\([^>]\+\)>;[[:space:]]*rel="next".*/\1/p')"
 done
 
