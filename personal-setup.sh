@@ -1,7 +1,7 @@
 #!/bin/sh
 
 software=anki,asunder,calibre,cron,discord,firefox,git,intellij,keepassxc,kid3,lgog-downloader\
-,nautilus-dropbox,nsxiv,openrgb,proprietary-nvidia-driver,psensor,qbittorrent\
+,mullvad,nautilus-dropbox,nsxiv,openrgb,proprietary-nvidia-driver,psensor,qbittorrent\
 ,qdirstat,shellcheck,smartmontools,steam,tmux,vim,wine,xfce
 
 "$(dirname "$0")"'/setup.sh' --software="$software" --prompt-for-install --native-and-non-native-packages
