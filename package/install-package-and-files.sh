@@ -4,21 +4,21 @@ dirname="$(dirname "$0")"
 
 directory="$1"
 package_manager="$2"
-software_flag="$3"
+package_flag="$3"
 force_install="$4"
 
 if [ "$#" -lt 2 ]; then
-        printf '%s: usage: directory package_manager [software_flag force_install]. Args: %s\n' "$0" "$*" >&2
+        printf '%s: usage: directory package_manager [package_flag force_install]. Args: %s\n' "$0" "$*" >&2
         exit 1
 fi
 
 
-software_option=$(echo "$software_flag" | awk -F '=' '{print $1}')
-software_option_values="$(echo "$software_flag" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
+package_option=$(echo "$package_flag" | awk -F '=' '{print $1}')
+package_option_values="$(echo "$package_flag" | awk -F '=' '{print $2}' | sed 's/,/ /g')"
 
-if [ -n "$software_option" ]; then
-        if [ "$software_option" != '--software' ]; then
-                printf '%s: Invalid option. Only valid option is --software\n' "$0" >&2
+if [ -n "$package_option" ]; then
+        if [ "$package_option" != '--package' ]; then
+                printf '%s: Invalid option. Only valid option is --package\n' "$0" >&2
                 exit 1
         fi
 fi
@@ -26,15 +26,15 @@ fi
 directory_name="$(basename "$directory")"
 should_install=false
 
-for software_option_value in $software_option_values
+for package_option_value in $package_option_values
 do
-        if [ "$software_option_value" = "$directory_name" ]; then
+        if [ "$package_option_value" = "$directory_name" ]; then
                 should_install=true
                 break
         fi
 done
 
-if [ -z "$software_option_values" ] || [ "$software_option_values" = 'all' ]; then
+if [ -z "$package_option_values" ] || [ "$package_option_values" = 'all' ]; then
         should_install=true
 fi
 
@@ -69,6 +69,6 @@ if [ "$should_install" = true ]; then
                 exit 0
         fi
 else
-        printf '%s is not part of --software (%s). Skipping...\n' "$directory" "$software_option_values"
+        printf '%s is not part of --package (%s). Skipping...\n' "$directory" "$package_option_values"
         exit 0
 fi

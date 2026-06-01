@@ -4,7 +4,7 @@ dirname="$(dirname "$0")"
 
 . "$dirname/function.sh"
 
-software_option_flag="$1"
+package_option_flag="$1"
 force_install="$2"
 native_only="$3"
 
@@ -27,7 +27,7 @@ do
         directory_name="$(basename "$directory")"
         for package_manager in $package_managers
         do
-                if "$dirname/install-software-and-files.sh" "$directory" "$package_manager" "$software_option_flag" "$force_install"; then
+                if "$dirname/install-package-and-files.sh" "$directory" "$package_manager" "$package_option_flag" "$force_install"; then
                         break
                 else
                         printf '%s: Installing with %s for %s failed\n' "$0" "$package_manager" "$directory_name" >&2
