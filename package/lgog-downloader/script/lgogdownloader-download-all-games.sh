@@ -10,7 +10,11 @@
 
 #lgogdownloader --download --game ^middleearth_shadow_of_mordor$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^a_plague_tale_requiem_digital_goodie_pack$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Commenting out these games because they take up a lot of space
+
+
+# Commenting out because its a stupid goodie pack. Don't need to save
+#lgogdownloader --download --game ^a_plague_tale_requiem_digital_goodie_pack$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^adom$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
@@ -104,11 +108,13 @@ lgogdownloader --download --game ^caveblazers$ --include all --ignore-dlc-count 
 
 lgogdownloader --download --game ^cayne$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^citizen_sleeper$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Didn't like, removing for now to save space
+#lgogdownloader --download --game ^citizen_sleeper$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^cryptmaster$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^daggerfall_unity_gog_cut$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Commenting this out because its a free game you can get elsewhere
+#lgogdownloader --download --game ^daggerfall_unity_gog_cut$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^dagon_by_h_p_lovecraft$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
@@ -280,7 +286,8 @@ lgogdownloader --download --game ^hacknet$ --include all --ignore-dlc-count --no
 
 lgogdownloader --download --game ^harvester$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^hello_neighbor_demo$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Demo game, do not need for this crap game
+#lgogdownloader --download --game ^hello_neighbor_demo$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^hellpoint_the_thespian_feast$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
@@ -484,7 +491,8 @@ lgogdownloader --download --game ^planescape_torment$ --include all --ignore-dlc
 
 lgogdownloader --download --game ^planescape_torment_enhanced_edition_game$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^planet_of_lana_goodie_pack$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Commenting this out because its a stupid goodie pack. Don't need
+#lgogdownloader --download --game ^planet_of_lana_goodie_pack$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^postal_2$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
@@ -580,7 +588,8 @@ lgogdownloader --download --game ^shadows_awakening$ --include all --ignore-dlc-
 
 lgogdownloader --download --game ^shantae_and_the_pirates_curse$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^shores_unknown_demo$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Demo of a game, do not want
+#lgogdownloader --download --game ^shores_unknown_demo$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^sid_meiers_alpha_centauri$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
@@ -728,7 +737,8 @@ lgogdownloader --download --game ^the_ultimate_doom_game$ --include all --ignore
 
 lgogdownloader --download --game ^the_wheel_of_time$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
-lgogdownloader --download --game ^the_witcher_goodies_collection$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
+# Commenting this out because its a stupid goodie pack. Don't need
+#lgogdownloader --download --game ^the_witcher_goodies_collection$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
 lgogdownloader --download --game ^the_witcher$ --include all --ignore-dlc-count --no-platform-detection --platform w+l --language en --save-changelogs --save-serials --xml-directory 'aaaMetadata'
 
