@@ -4,10 +4,10 @@
         cd '/tmp' || exit
 
         destination_folder='/opt/discord'
-        binary_file_name='Discord'
+        binary_file_name='discord'
         symlink_path='/usr/bin/discord'
 
-        version='0.0.116'
+        version='1.0.143'
         tar_name="discord-$version.tar.gz"
         unzipped_folder_name='Discord'
 
